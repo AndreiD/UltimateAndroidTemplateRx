@@ -1,0 +1,101 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+
+    signingConfigs {
+        config {
+            keyAlias 'appcert'
+            keyPassword 'password'
+            storeFile file('location')
+            storePassword 'password'
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.androidadvance.ultimateandroidtemplaterx"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //signingConfig signingConfigs.config
+        }
+        debug {
+            debuggable false
+            minifyEnabled false
+            //signingConfig signingConfigs.config
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
+    lintOptions {
+        warning 'InvalidPackage'
+        abortOnError false
+    }
+}
+
+retrolambda {
+    jvmArgs '-noverify'
+}
+
+dependencies {
+
+    final RETROFIT_VERSION = '2.0.0-beta2'
+    final DAGGER_VERSION = '2.0.2'
+    def daggerCompiler = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+
+    //----- Retrofit
+    compile "com.squareup.retrofit:retrofit:$RETROFIT_VERSION"
+    compile "com.squareup.retrofit:converter-gson:$RETROFIT_VERSION"
+    compile "com.squareup.retrofit:adapter-rxjava:$RETROFIT_VERSION"
+
+    //--- Eventbuss
+    compile 'de.greenrobot:eventbus:2.4.0'
+
+    compile 'com.github.bumptech.glide:glide:3.6.1'
+
+    //---- Easy Permission Management
+    compile 'com.karumi:dexter:2.1.2'
+
+    //---- Database
+    compile 'de.greenrobot:greendao:2.0.0'
+    compile 'de.greenrobot:greendao-generator:2.0.0'
+
+    //------- Rx
+    compile 'io.reactivex:rxjava:1.1.0'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
+    compile 'com.squareup.retrofit:adapter-rxjava:2.0.0-beta2'
+
+    //----- Dagger
+    compile  "com.google.dagger:dagger:$DAGGER_VERSION"
+    provided 'org.glassfish:javax.annotation:10.0-b28' //Required by Dagger2
+
+    // APT dependencies
+    apt daggerCompiler
+    testApt daggerCompiler
+    androidTestApt daggerCompiler
+}
