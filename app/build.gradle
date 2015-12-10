@@ -90,6 +90,7 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
     compile 'com.squareup.retrofit:adapter-rxjava:2.0.0-beta2'
 
+
     //----- Dagger
     compile  "com.google.dagger:dagger:$DAGGER_VERSION"
     provided 'org.glassfish:javax.annotation:10.0-b28' //Required by Dagger2

@@ -23,7 +23,7 @@
 bin/
 gen/
 
-gradle
+
 # Ignore gradle files
 .gradle/
 
