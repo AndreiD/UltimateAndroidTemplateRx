@@ -1,19 +1,18 @@
 package com.androidadvance.ultimateandroidtemplaterx.injection.module;
 
 import android.app.Application;
-import android.content.Context;
 
-
-import com.androidadvance.ultimateandroidtemplaterx.injection.ApplicationContext;
+import com.androidadvance.ultimateandroidtemplaterx.data.DataManager;
+import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import de.greenrobot.event.EventBus;
 
 /**
- * Provide application-level dependencies.
+ * Provide application-level dependencies. Mainly singleton object that can be injected from
+ * anywhere in the app.
  */
 @Module
 public class ApplicationModule {
@@ -24,21 +23,21 @@ public class ApplicationModule {
     }
 
     @Provides
+    @Singleton
     Application provideApplication() {
         return mApplication;
     }
 
     @Provides
-    @ApplicationContext
-    Context provideContext() {
-        return mApplication;
+    @Singleton
+    DataManager provideDataManager() {
+        return new DataManager(mApplication);
     }
 
     @Provides
-    @Singleton EventBus provideEventBus() {
-        return new EventBus();
+    @Singleton
+    Bus provideEventBus() {
+        return new Bus();
     }
-
-
 
 }

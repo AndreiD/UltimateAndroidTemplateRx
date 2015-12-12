@@ -1,11 +1,14 @@
 package com.androidadvance.ultimateandroidtemplaterx;
 
-
 import android.app.Application;
 import android.content.Context;
 
+
 import com.androidadvance.ultimateandroidtemplaterx.injection.component.ApplicationComponent;
+import com.androidadvance.ultimateandroidtemplaterx.injection.component.DaggerApplicationComponent;
 import com.androidadvance.ultimateandroidtemplaterx.injection.module.ApplicationModule;
+
+import rx.android.BuildConfig;
 
 
 public class AndroidBoilerplateApplication extends Application {
@@ -16,7 +19,8 @@ public class AndroidBoilerplateApplication extends Application {
     public void onCreate() {
         super.onCreate();
         if (BuildConfig.DEBUG) {
-            //Timber.plant(new Timber.DebugTree());
+
+            //------ configs for debug build
         }
 
         mApplicationComponent = DaggerApplicationComponent.builder()

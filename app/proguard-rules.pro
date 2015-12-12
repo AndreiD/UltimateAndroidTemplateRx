@@ -17,6 +17,7 @@
     @com.google.inject.Inject <init>(...);
 }
 
+-dontwarn freemarker.**
 
 # ButterKnife rules
 -keep class butterknife.** { *; }
