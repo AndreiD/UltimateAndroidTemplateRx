@@ -1,9 +1,11 @@
+.gradle
 /local.properties
 /.idea/workspace.xml
+/.idea/libraries
 .DS_Store
 /build
 /captures
-/idea
+/build
 # built application files
 *.apk
 *.ap_
@@ -22,6 +24,9 @@
 bin/
 gen/
 
+# Ignore gradle files
+.gradle/
+build/
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -52,4 +57,3 @@ Thumbs.db
 *.iml
 .idea
 build
-app.iml
