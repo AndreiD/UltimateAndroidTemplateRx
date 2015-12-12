@@ -1,4 +1,3 @@
-.gradle
 /local.properties
 /.idea/workspace.xml
 .DS_Store
@@ -23,9 +22,6 @@
 bin/
 gen/
 
-
-# Ignore gradle files
-.gradle/
 
 # Local configuration file (sdk path, etc)
 local.properties
