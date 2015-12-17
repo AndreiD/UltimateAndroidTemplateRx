@@ -9,6 +9,7 @@ import com.androidadvance.ultimateandroidtemplaterx.injection.component.DaggerAp
 import com.androidadvance.ultimateandroidtemplaterx.injection.module.ApplicationModule;
 
 import rx.android.BuildConfig;
+import timber.log.Timber;
 
 
 public class AndroidBoilerplateApplication extends Application {
@@ -18,14 +19,16 @@ public class AndroidBoilerplateApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (BuildConfig.DEBUG) {
 
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
             //------ configs for debug build
         }
 
         mApplicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
+
     }
 
     public static AndroidBoilerplateApplication get(Context context) {

@@ -19,11 +19,6 @@
 
 -dontwarn freemarker.**
 
-# ButterKnife rules
--keep class butterknife.** { *; }
--dontwarn butterknife.internal.**
--keep class **$$ViewBinder { *; }
-
 -keepclasseswithmembernames class * {
     @butterknife.* <fields>;
 }
@@ -133,3 +128,17 @@
     long producerNode;
     long consumerNode;
 }
+
+#___________ DO YOU USE THEM ___________ ?
+
+# Easy Adapter Proguard
+-keepattributes *Annotation*
+-keepclassmembers class * extends uk.co.ribot.easyadapter.ItemViewHolder {
+    public <init>(...);
+ }
+
+
+# ButterKnife rules
+-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }

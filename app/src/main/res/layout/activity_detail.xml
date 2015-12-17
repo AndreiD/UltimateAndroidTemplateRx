@@ -17,7 +17,7 @@
             android:minHeight="?attr/actionBarSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primary"
+            android:background="@color/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
@@ -25,13 +25,13 @@
             android:id="@+id/sliding_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primary"
+            android:background="@color/colorPrimary"
             app:tabGravity="center"
-            app:tabIndicatorColor="@color/accent"
+            app:tabIndicatorColor="@color/colorAccent"
             app:tabIndicatorHeight="3dp"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/white"
-            app:tabTextColor="@color/primary_light"/>
+            app:tabTextColor="@color/colorPrimaryLight"/>
 
     </android.support.design.widget.AppBarLayout>
 

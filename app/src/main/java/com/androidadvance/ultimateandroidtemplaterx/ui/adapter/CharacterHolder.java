@@ -1,40 +1,35 @@
 package com.androidadvance.ultimateandroidtemplaterx.ui.adapter;
 
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.androidadvance.ultimateandroidtemplaterx.R;
 import com.androidadvance.ultimateandroidtemplaterx.data.model.Character;
 import com.androidadvance.ultimateandroidtemplaterx.ui.activity.CharacterActivity;
-import com.androidadvance.ultimateandroidtemplaterx.ui.activity.DetailActivity;
+import com.androidadvance.ultimateandroidtemplaterx.util.skyicons.SunView;
 
 import uk.co.ribot.easyadapter.ItemViewHolder;
 import uk.co.ribot.easyadapter.PositionInfo;
 import uk.co.ribot.easyadapter.annotations.LayoutId;
 import uk.co.ribot.easyadapter.annotations.ViewId;
 
-@LayoutId(R.layout.item_character)
+@LayoutId(R.layout.item_days)
 public class CharacterHolder extends ItemViewHolder<Character> {
 
     @ViewId(R.id.container_character)
-    View mCharacterContainer;
+    View container_character;
 
-    @ViewId(R.id.text_name)
+    @ViewId(R.id.text_day_name)
     TextView mNameText;
 
     @ViewId(R.id.text_description)
-    TextView mDescriptionText;
+    TextView text_description;
 
-    @ViewId(R.id.image_character)
-    ImageView mCharacterImage;
+    @ViewId(R.id.framelayout_condition_holder)
+    FrameLayout framelayout_condition_holder;
 
-    @ViewId(R.id.text_view)
-    TextView mViewText;
-
-    @ViewId(R.id.text_tab)
-    TextView mTabText;
 
     public CharacterHolder(View view) {
         super(view);
@@ -45,34 +40,44 @@ public class CharacterHolder extends ItemViewHolder<Character> {
         mNameText.setText(character.name);
         int filmCount = character.films.size();
         String description = getContext().getString(R.string.text_films_description, filmCount);
-        mDescriptionText.setText(filmCount == 0 ? getContext().getString(R.string.text_no_description) : description);
-        Glide.with(getContext())
-                .load(getImageUrl(character.name))
-                .into(mCharacterImage);
+        text_description.setText(filmCount == 0 ? getContext().getString(R.string.text_no_description) : description);
+
+
+        LinearLayout layout = new LinearLayout(getContext());
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layout.setLayoutParams(params);
+
+        SunView windView = new SunView(getContext());
+
+
+        layout.addView(windView);
+        framelayout_condition_holder.addView(layout);
+
     }
 
     @Override
     public void onSetListeners() {
-        mViewText.setOnClickListener(new View.OnClickListener() {
+//        mViewText.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getContext().startActivity(CharacterActivity.getStartIntent(getContext(), getItem()));
+//            }
+//        });
+
+        container_character.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getContext().startActivity(CharacterActivity.getStartIntent(getContext(), getItem()));
             }
         });
 
-        mCharacterContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getContext().startActivity(CharacterActivity.getStartIntent(getContext(), getItem()));
-            }
-        });
-
-        mTabText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getContext().startActivity(DetailActivity.getStartIntent(getContext(), getItem()));
-            }
-        });
+//        mTabText.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getContext().startActivity(DetailActivity.getStartIntent(getContext(), getItem()));
+//            }
+//        });
     }
 
     private String getImageUrl(String name) {

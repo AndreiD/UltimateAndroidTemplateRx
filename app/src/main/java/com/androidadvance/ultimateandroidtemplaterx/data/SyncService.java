@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import timber.log.Timber;
 
 public class SyncService extends Service {
 
@@ -40,10 +41,10 @@ public class SyncService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, final int startId) {
-        Log.i("Starting sync...", "_");
+        Timber.i("Starting sync...");
 
         if (!NetworkUtil.isNetworkConnected(this)) {
-            Log.i("Sync cancelled", "connection not available.");
+            Timber.i("Sync cancelled connection not available.");
             AndroidComponentUtil.toggleComponent(this, SyncOnConnectionAvailable.class, true);
             stopSelf(startId);
             return START_NOT_STICKY;
@@ -58,13 +59,13 @@ public class SyncService extends Service {
                 .subscribe(new Observer<Character>() {
                     @Override
                     public void onCompleted() {
-                        Log.i("Synced successfully!","Ok");
+                        Timber.i("Synced successfully!");
                         stopSelf(startId);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("Error syncing ", e.getMessage());
+                        Timber.e("Error syncing " + e);
                         stopSelf(startId);
                     }
 
@@ -92,7 +93,7 @@ public class SyncService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (NetworkUtil.isNetworkConnected(context)) {
-                Log.i("Connection is now available", "triggering sync...");
+                Timber.i("Connection is now available triggering sync...");
                 AndroidComponentUtil.toggleComponent(context, this.getClass(), false);
                 context.startService(getStartIntent(context));
             }

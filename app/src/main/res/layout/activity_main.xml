@@ -17,7 +17,7 @@
             android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_characters"
+                android:id="@+id/recycler_days"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="@dimen/activity_vertical_margin"
@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
-            android:background="@color/primary"
+            android:background="@color/colorPrimary"
             android:theme="@style/AppTheme.ActionBar"/>
 
     </android.support.design.widget.AppBarLayout>

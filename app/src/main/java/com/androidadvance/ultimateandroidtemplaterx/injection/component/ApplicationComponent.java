@@ -7,11 +7,11 @@ import com.androidadvance.ultimateandroidtemplaterx.data.DataManager;
 import com.androidadvance.ultimateandroidtemplaterx.data.SyncService;
 import com.androidadvance.ultimateandroidtemplaterx.injection.module.ApplicationModule;
 import com.androidadvance.ultimateandroidtemplaterx.ui.activity.MainActivity;
-import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
+import de.greenrobot.event.EventBus;
 
 @Singleton
 @Component(modules = ApplicationModule.class)
@@ -22,5 +22,5 @@ public interface ApplicationComponent {
 
     Application application();
     DataManager dataManager();
-    Bus eventBus();
+    EventBus eventBus();
 }

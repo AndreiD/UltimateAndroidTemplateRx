@@ -1,11 +1,12 @@
 <resources>
-    <string name="app_name">AndroidBoilerPlate</string>
+    <string name="app_name">AndroidRxTemplate</string>
 
     <!-- Activity labels -->
-    <string name="label_main">Boilerplate</string>
+    <string name="label_main">WeatherRx</string>
 
     <!-- Main Activity -->
 
+    <string name="icons_attribution">Icons by Max Randall https://thenounproject.com/maxrandall/</string>
     <string name="action_github">View on GitHub</string>
     <string name="text_view">View</string>
     <string name="text_collections">Collections</string>

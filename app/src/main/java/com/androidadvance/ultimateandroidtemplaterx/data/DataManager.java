@@ -9,13 +9,13 @@ import com.androidadvance.ultimateandroidtemplaterx.data.model.Character;
 import com.androidadvance.ultimateandroidtemplaterx.data.remote.APIService;
 import com.androidadvance.ultimateandroidtemplaterx.injection.component.DaggerDataManagerComponent;
 import com.androidadvance.ultimateandroidtemplaterx.injection.module.DataManagerModule;
-import com.squareup.otto.Bus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import de.greenrobot.event.EventBus;
 import rx.Observable;
 import rx.Scheduler;
 import rx.functions.Func1;
@@ -26,7 +26,7 @@ public class DataManager {
     @Inject protected DatabaseHelper mDatabaseHelper;
     @Inject protected PreferencesHelper mPreferencesHelper;
     @Inject protected Scheduler mSubscribeScheduler;
-    @Inject protected Bus mEventBus;
+    @Inject protected EventBus mEventBus;
 
     public DataManager(Context context) {
         injectDependencies(context);
@@ -38,7 +38,7 @@ public class DataManager {
      * modules */
     public DataManager(APIService watchTowerService,
                        DatabaseHelper databaseHelper,
-                       Bus eventBus,
+                       EventBus eventBus,
                        PreferencesHelper preferencesHelper,
                        Scheduler subscribeScheduler) {
         mAPIService = watchTowerService;

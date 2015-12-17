@@ -5,7 +5,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,12 +26,13 @@ import butterknife.ButterKnife;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.subscriptions.CompositeSubscription;
+import timber.log.Timber;
 import uk.co.ribot.easyadapter.EasyRecyclerAdapter;
 
 public class MainActivity extends BaseActivity {
 
-    @Bind(R.id.recycler_characters)
-    RecyclerView mCharactersRecycler;
+    @Bind(R.id.recycler_days)
+    RecyclerView mDaysRecycler;
 
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
@@ -88,11 +88,11 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setupRecyclerView() {
-        mCharactersRecycler.setLayoutManager(new LinearLayoutManager(this));
+        mDaysRecycler.setLayoutManager(new LinearLayoutManager(this));
         mEasyRecycleAdapter = new EasyRecyclerAdapter<>(this, CharacterHolder.class);
-        mCharactersRecycler.setAdapter(mEasyRecycleAdapter);
+        mDaysRecycler.setAdapter(mEasyRecycleAdapter);
 
-        mSwipeRefresh.setColorSchemeResources(R.color.primary);
+        mSwipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -114,7 +114,7 @@ public class MainActivity extends BaseActivity {
 
                         @Override
                         public void onError(Throwable error) {
-                            Log.e("There was an error retrieving the characters ", error.getMessage());
+                            Timber.e("There was an error retrieving the characters " + error.getMessage());
                             mProgressBar.setVisibility(View.GONE);
                             mSwipeRefresh.setRefreshing(false);
                             DialogFactory.createSimpleErrorDialog(MainActivity.this).show();
@@ -151,7 +151,7 @@ public class MainActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable error) {
-                        Log.e("There was an error", error.getMessage());
+                        Timber.e("There was an error" + error.getMessage());
                         mProgressBar.setVisibility(View.GONE);
                         mSwipeRefresh.setRefreshing(false);
                         DialogFactory.createSimpleErrorDialog(MainActivity.this).show();
