@@ -1,11 +1,14 @@
 Ultimate Android Template Rx
 ===================
 
-MVP Template
+A Simple MVP Template
 ------------
 
 A simple template application following the MVP Arhitecture.
 The app gets the weather, syncs it locally.
+
+![Image](https://raw.githubusercontent.com/AndreiD/UltimateAndroidTemplateRx/master/screenshot.png?raw=true)
+
 
 Before you begin with this template:
 ------------
