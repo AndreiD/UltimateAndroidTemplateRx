@@ -20,10 +20,6 @@
 -dontwarn freemarker.**
 
 -keepclasseswithmembernames class * {
-    @butterknife.* <fields>;
-}
-
--keepclasseswithmembernames class * {
     @butterknife.* <methods>;
 }
 
@@ -129,16 +125,14 @@
     long consumerNode;
 }
 
-#___________ DO YOU USE THEM ___________ ?
 
-# Easy Adapter Proguard
--keepattributes *Annotation*
--keepclassmembers class * extends uk.co.ribot.easyadapter.ItemViewHolder {
-    public <init>(...);
- }
+#________ OPTIONALS _______
 
-
-# ButterKnife rules
+# If you use butterknife.
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
 -keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**
 -keep class **$$ViewBinder { *; }
+

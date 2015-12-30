@@ -1,23 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimaryDark">#9f3000</color>
-    <color name="colorPrimary">#fc4c01</color>
-    <color name="colorPrimaryLight">#ffc4ad</color>
-    <color name="colorAccent">#CC0000</color>
-    <color name="windowBackground">#ffffff</color>
-    <color name="colorControlNormal">#fc4c01</color>
-    <color name="colorControlActivated">#fc5d01</color>
-    <color name="navbar_color">@color/colorPrimaryDark</color>
-    <color name="appcolor_black">#383838</color>
+  <color name="colorPrimaryDark">#1c6399</color>
+  <color name="colorPrimary">#55acee</color>
+  <color name="colorAccent">#55acee</color>
+  <color name="windowBackground">#F4F4F4</color>
+  <color name="colorControlNormal">#F4F4F4</color>
+  <color name="colorControlActivated">#5bb0ef</color>
 
-    <color name="primary_text">#212121</color>
-    <color name="secondary_text">#727272</color>
-    <color name="icons">#FFFFFF</color>
-    <color name="divider">#B6B6B6</color>
-    <color name="white">#FFFFFF</color>
-    <color name="super_light_grey">#FAFAFA</color>
-    <color name="line_grey">#D7D7D7</color>
-    <color name="light_grey">#D4D4D4</color>
-    <color name="bg_light_grey">#E9E9E9</color>
-    <color name="black_87pc">#DD000000</color>
+  <color name="text_color">#333333</color>
+  <color name="navbar_color">@color/black_87pc</color>
+
+  <color name="error_background">#fc5d01</color>
+
+  <color name="primary_text">#212121</color>
+  <color name="secondary_text">#727272</color>
+  <color name="icons">#FFFFFF</color>
+  <color name="divider">#B6B6B6</color>
+  <color name="white">#FFFFFF</color>
+  <color name="super_light_grey">#FAFAFA</color>
+  <color name="line_grey">#D7D7D7</color>
+  <color name="light_grey">#D4D4D4</color>
+  <color name="bg_light_grey">#E9E9E9</color>
+  <color name="black_87pc">#DD000000</color>
+
+  <color name="touch_effect">#9ccc</color>
+
+  <color name="material_animations_primary">@color/colorPrimary</color>
+  <color name="material_animations_primary_dark">@color/colorPrimaryDark</color>
+  <color name="material_animations_blank">#424242</color>
+  <color name="material_animations_accent">@color/colorAccent</color>
+
+  <color name="text_light">@android:color/white</color>
+  <color name="text_dark">#616161</color>
+
+  <color name="material_red">#ff4444</color>
+  <color name="material_blue">#33b5e5</color>
+  <color name="material_green">#669900</color>
+  <color name="material_yellow">#ff8800</color>
+
+  <color name="green">#669900</color>
+  <color name="red">#ff4444</color>
+
+  <color name="transparent">#00000000</color>
+  <color name="card_background">#ffffff</color>
+  <color name="card_shadow_1">#d4d4d4</color>
+  <color name="card_shadow_2">#dddddd</color>
+  <color name="card_detailing">#eee</color>
+
 </resources>

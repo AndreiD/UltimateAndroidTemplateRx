@@ -1,14 +1,85 @@
-<resources>>
-    <style name="AppBaseTheme" parent="android:Theme.Material.Light">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlActivated">@color/colorControlActivated</item>
-        <item name="colorControlNormal">@color/colorControlNormal</item>
-        <item name="colorControlHighlight">@color/colorPrimary</item>
-        <item name="android:windowBackground">@color/windowBackground</item>
-        <item name="android:navigationBarColor">@color/navbar_color</item>
+<resources>
 
-        <item name="android:textColor">@color/appcolor_black</item>
-    </style>
+  <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="colorControlActivated">@color/colorControlActivated</item>
+    <item name="colorControlNormal">@color/colorControlNormal</item>
+    <item name="colorControlHighlight">@color/colorPrimary</item>
+    <item name="android:navigationBarColor">@color/navbar_color</item>
+    <item name="alertDialogTheme">@style/AlertDialogStyle</item>
+    <item name="android:itemTextAppearance">@style/OptionsMenuTextColor</item>
+    <item name="android:colorPrimaryDark">@color/material_animations_primary_dark</item>
+    <item name="android:colorAccent">@color/material_animations_accent</item>
+    <item name="android:textColorPrimary">@color/text_color</item>
+    <item name="android:textColorPrimaryInverse">@color/text_light</item>
+    <item name="android:statusBarColor">@color/material_animations_primary_dark</item>
+    <item name="android:textColor">@color/text_dark</item>
+    <item name="android:windowContentTransitions">true</item>
+    <item name="android:windowAllowEnterTransitionOverlap">false</item>
+    <item name="android:windowAllowReturnTransitionOverlap">false</item>
+    <item name="android:titleTextAppearance">@style/MaterialAnimations.TextAppearance.Title</item>
+    <item name="android:windowBackground">@color/light_grey</item>
+  </style>
+
+
+  <style name="MaterialAnimations.TextAppearance.Title" parent="android:TextAppearance.Material.Title">
+    <item name="android:textColor">?android:textColorPrimary</item>
+  </style>
+
+  <style name="MaterialAnimations.TextAppearance.Title.Inverse" parent="android:TextAppearance.Material.Title">
+    <item name="android:textColor">?android:textColorPrimaryInverse</item>
+  </style>
+
+  <style name="MaterialAnimations.Text.Body" parent="Base.TextAppearance.AppCompat.Medium">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_margin">@dimen/spacing_normal</item>
+    <item name="android:padding">@dimen/spacing_normal</item>
+  </style>
+
+  <style name="MaterialAnimations.Text.Section" parent="Base.TextAppearance.AppCompat.Caption">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+  </style>
+
+  <style name="AppTheme.Icon">
+    <item name="android:layout_margin">10dp</item>
+  </style>
+
+  <style name="AppTheme.Icon.Big">
+    <item name="android:layout_width">150dp</item>
+    <item name="android:layout_height">150dp</item>
+  </style>
+
+  <style name="AppTheme.Icon.Medium">
+    <item name="android:layout_width">84dp</item>
+    <item name="android:layout_margin">2dp</item>
+    <item name="android:layout_height">84dp</item>
+  </style>
+
+  <style name="MaterialAnimations.Icon.Medium.Scaled" parent="AppTheme.Icon.Medium">
+    <item name="android:alpha">0</item>
+    <item name="android:scaleX">0.5</item>
+    <item name="android:scaleY">0.5</item>
+  </style>
+
+  <style name="AppTheme.Icon.Small">
+    <item name="android:layout_width">48dp</item>
+    <item name="android:layout_height">48dp</item>
+  </style>
+
+  <style name="MaterialAnimations.Button" parent="Base.Widget.AppCompat.Button">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_margin">@dimen/spacing_normal</item>
+  </style>
+
+  <style name="MaterialAnimations.Button.Scaled" parent="MaterialAnimations.Button">
+    <item name="android:scaleX">0</item>
+    <item name="android:scaleY">0</item>
+  </style>
+
 </resources>

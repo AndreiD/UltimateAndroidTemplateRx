@@ -3,7 +3,7 @@
 
 
     <PreferenceCategory
-        android:title="@string/settings">
+        android:title="@string/general">
 
 
         <SwitchPreference
