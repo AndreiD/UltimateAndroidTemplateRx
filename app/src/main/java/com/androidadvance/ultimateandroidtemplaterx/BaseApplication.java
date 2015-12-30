@@ -28,7 +28,8 @@ public class BaseApplication extends Application {
 
     FlowManager.init(this);
 
-    Delete.table(DbModel.class);
+    //use this to clear the database
+    //Delete.table(DbModel.class);
   }
 
   public ApiService getApiService() {

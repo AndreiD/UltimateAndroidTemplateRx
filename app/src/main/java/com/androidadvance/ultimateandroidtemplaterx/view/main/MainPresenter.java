@@ -5,10 +5,12 @@ import com.androidadvance.ultimateandroidtemplaterx.R;
 import com.androidadvance.ultimateandroidtemplaterx.data.local.DbModel;
 import com.androidadvance.ultimateandroidtemplaterx.data.local.DbModel_Table;
 import com.androidadvance.ultimateandroidtemplaterx.data.remote.ApiService;
+import com.androidadvance.ultimateandroidtemplaterx.events.MessagesEvent;
 import com.androidadvance.ultimateandroidtemplaterx.model.weather.WeatherPojo;
 import com.androidadvance.ultimateandroidtemplaterx.presenter.Presenter;
 import com.google.gson.Gson;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
+import de.greenrobot.event.EventBus;
 import retrofit.HttpException;
 import rx.Subscriber;
 import rx.Subscription;
@@ -32,11 +34,7 @@ public class MainPresenter implements Presenter<MainMvpView> {
 
   public void loadWeather(String from_where) {
 
-    WeatherPojo from_db = load_from_db();
-    if (from_db != null) {
-      Timber.d("loading weather from the db!");
-      mainMvpView.showWeather(from_db);
-    }
+    load_from_db();
 
     String weather_from_where = from_where.trim();
     if (weather_from_where.isEmpty()) return;
@@ -62,9 +60,9 @@ public class MainPresenter implements Presenter<MainMvpView> {
           @Override public void onError(Throwable error) {
             Timber.e(error, "Error loading weather ");
             if (isHttp404(error)) {
-              mainMvpView.showMessage(R.string.error_not_found);
+              EventBus.getDefault().post(new MessagesEvent(false, baseApplication.getString(R.string.error_not_found)));
             } else {
-              mainMvpView.showMessage(R.string.error_loading_weather);
+              EventBus.getDefault().post(new MessagesEvent(false, baseApplication.getString(R.string.error_loading_weather)));
             }
 
             mainMvpView.hideProgress();
@@ -92,13 +90,15 @@ public class MainPresenter implements Presenter<MainMvpView> {
     }
   }
 
-  private WeatherPojo load_from_db() {
+  private void load_from_db() {
     long count = SQLite.selectCountOf(DbModel_Table.id).from(DbModel.class).count();
     if (count > 0) {
       DbModel dbModel = SQLite.select().from(DbModel.class).querySingle();
-      return new Gson().fromJson(dbModel.getCurrent_weather(), WeatherPojo.class);
+      Timber.d("loading weather from the db!");
+      mainMvpView.showWeather(new Gson().fromJson(dbModel.getCurrent_weather(), WeatherPojo.class));
+    }else{
+      Timber.d("nothing in the database");
     }
-    return null;
   }
 
   private static boolean isHttp404(Throwable error) {

@@ -7,8 +7,6 @@ public interface MainMvpView extends MvpView {
 
   void showWeather(WeatherPojo weatherPojo);
 
-  void showMessage(int stringId);
-
   void showProgress();
 
   void hideProgress();

@@ -15,7 +15,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.androidadvance.ultimateandroidtemplaterx.R;
-import com.androidadvance.ultimateandroidtemplaterx.events.FetchWeatherEvent;
+import com.androidadvance.ultimateandroidtemplaterx.events.MessagesEvent;
 import com.androidadvance.ultimateandroidtemplaterx.model.weather.WeatherPojo;
 import com.androidadvance.ultimateandroidtemplaterx.util.DialogFactory;
 import com.androidadvance.ultimateandroidtemplaterx.util.UnitLocale;
@@ -111,8 +111,14 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     super.onStop();
   }
 
-  public void onEvent(FetchWeatherEvent event) {
-    Timber.d("weather event: %s", event.ismSuccess());
+  public void onEvent(MessagesEvent event) {
+
+    if(event.ismSuccess()){
+      DialogFactory.createSimpleOkDialog(MainActivity.this,getString(R.string.app_name),event.getMessage()).show();
+    }else{
+      DialogFactory.showErrorSnackBar(MainActivity.this,findViewById(android.R.id.content),new Throwable(event.getMessage())).show();
+    }
+
   }
 
   @Override public void showWeather(WeatherPojo weatherPojo) {
@@ -131,10 +137,6 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     textView_main_pressure.setText(getString(R.string.pressure) + " " + weatherPojo.getMain().getPressure() + "hPa");
     imageView_main_icon.setImageDrawable(ContextCompat.getDrawable(getContext(), getIcon(weatherPojo.getWeather().get(0).getId())));
-  }
-
-  @Override public void showMessage(int stringId) {
-    Timber.i("show messages " + stringId);
   }
 
   @Override public void showProgress() {

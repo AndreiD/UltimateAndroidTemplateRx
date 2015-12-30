@@ -1,22 +1,95 @@
 Ultimate Android Template Rx
 ===================
 
-### Under development. I'll update the description once I have a "stable" version.
+MVP Template
+------------
 
-A simple template application which demonstrates the power of Rx.
+A simple template application following the MVP Arhitecture.
+The app gets the weather, syncs it locally.
+
+Before you begin with this template:
+------------
+
+- The following template is too simple for you [Ultimate Android App Template](https://github.com/AndreiD/UltimateAndroidAppTemplate) and you are looking for something more complex
+- You have basic knowledge of RxAndroid
+- You have basic knowledge of: Retrofit, Butterknife, Picasso libraries
+- You played a little with: DbFlow, Eventbuss, com.karumi:dexter
+
+How to use it:
+------------
+
+* Clone this repo
+* Run it and see that it's working on your emulator.
+* Modify applicationId "com.andrei.template" to your package name
+* Check the compileSdkVersion, and buildToolsVersion to be the latest
+* IMPORTANT: Remove the libs that you don't need. Add those that you do. Profit!
+* Star this repository :)
 
 
-Thanks
---------
+What it contains
+------------
 
-Thanks to the following for contributions!
+~~~~
+ //----- Support Libs
+  compile "com.android.support:appcompat-v7:23.1.1"
+  compile "com.android.support:design:23.1.1"
+  compile "com.android.support:recyclerview-v7:23.1.1"
+  compile "com.android.support:cardview-v7:23.1.1"
 
-[Joe Birch] (https://github.com/hitherejoe)
-[ribot] (https://github.com/ribot)
+  //----- Rx
+  compile "io.reactivex:rxandroid:1.1.0"
+  compile "io.reactivex:rxjava:1.1.0"
+  //compile "com.jakewharton.rxbinding:rxbinding:0.3.0"
+
+  //----- Retrofit
+  compile "com.squareup.retrofit:retrofit:2.0.0-beta2"
+  compile "com.squareup.retrofit:converter-gson:2.0.0-beta2"
+  compile "com.squareup.retrofit:adapter-rxjava:2.0.0-beta2"
+  compile "com.squareup.okhttp:logging-interceptor:2.6.0"
+
+  //---- DbFlow
+  apt "com.github.Raizlabs.DBFlow:dbflow-processor:3.0.0-beta1"
+  compile "com.github.Raizlabs.DBFlow:dbflow-core:3.0.0-beta1"
+  compile "com.github.Raizlabs.DBFlow:dbflow:3.0.0-beta1"
+
+  //----- Butterknife
+  compile "com.jakewharton:butterknife:7.0.1"
+
+  //----- Eventbuss
+  compile "de.greenrobot:eventbus:2.4.0"
+
+  //----- Timber
+  compile "com.jakewharton.timber:timber:4.1.0"
+
+  //----- Picasso
+  compile "com.squareup.picasso:picasso:2.5.2"
+
+  //------ Circular ImageView
+  compile "com.mikhaellopez:circularimageview:2.1.1"
+
+  //----- Easy Permission Management
+  compile "com.karumi:dexter:2.1.2"
+
+  //----- Annotations
+  compile "org.glassfish:javax.annotation:10.0-b28"
+
+  //----- Testing
+  androidTestCompile "com.android.support.test:runner:0.4"
+  androidTestCompile "com.android.support.test:rules:0.4"
+  androidTestCompile "com.android.support.test.espresso:espresso-core:2.2.1"
+  androidTestCompile "org.hamcrest:hamcrest-library:1.3"
+~~~~
+
+Need more nice stuff ?
+------------
+
+- Google, Facebok, Twitter logins -> https://github.com/AndreiD/FacebookTwitterGoogleLogins
+- A survey lib for your app -> https://github.com/AndreiD/surveylib
 
 Attributions
 ------------
 
-Thanks to the following for use of icons off of Noun Project:
+Thanks to the following for their work:
 
-[Iconoci](https://thenounproject.com/iconoci)
+[ribot guys] (https://github.com/ribot)
+- Icons by http://vclouds.deviantart.com/

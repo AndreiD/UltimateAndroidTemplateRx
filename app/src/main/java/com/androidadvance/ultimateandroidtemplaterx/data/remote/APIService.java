@@ -4,6 +4,7 @@ import com.androidadvance.ultimateandroidtemplaterx.model.forecast.Forecast;
 import com.androidadvance.ultimateandroidtemplaterx.model.weather.WeatherPojo;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
+import java.util.concurrent.TimeUnit;
 import retrofit.http.GET;
 import retrofit.http.Query;
 import rx.Observable;
@@ -29,6 +30,8 @@ public interface ApiService {
     private static void create() {
 
       OkHttpClient client = new OkHttpClient();
+      client.setConnectTimeout(5, TimeUnit.SECONDS);
+      client.setReadTimeout(10, TimeUnit.SECONDS);
 
       //------- enable logging ------
       HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
