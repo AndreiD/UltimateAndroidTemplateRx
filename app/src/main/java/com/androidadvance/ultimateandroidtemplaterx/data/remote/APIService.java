@@ -39,6 +39,7 @@ public interface ApiService {
       client.interceptors().add(interceptor);
 
       //Extra Headers
+
       //client.networkInterceptors().add(chain -> {
       //  Request request = chain.request().newBuilder().addHeader("Authorization", authToken).build();
       //  return chain.proceed(request);
