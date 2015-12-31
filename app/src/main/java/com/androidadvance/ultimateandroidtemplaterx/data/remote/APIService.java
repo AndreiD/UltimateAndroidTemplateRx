@@ -21,7 +21,7 @@ public interface ApiService {
 
   @GET("/data/2.5/weather?appid=2de143494c0b295cca9337e1e96b00e0") Observable<WeatherPojo> getWeatherForCity(@Query("q") String city, @Query("units") String units);
 
-  @GET("/data/2.5/forecast?appid=2de143494c0b295cca9337e1e96b00e0&cnt=3") Observable<Forecast> getForecastForCity(@Query("q") String city, @Query("units") String units);
+  @GET("/data/2.5/forecast?appid=2de143494c0b295cca9337e1e96b00e0&cnt=7") Observable<Forecast> getForecastForCity(@Query("q") String city, @Query("units") String units);
 
   class Factory {
 

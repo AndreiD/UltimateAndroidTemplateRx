@@ -20,6 +20,16 @@
       </intent-filter>
     </activity>
 
+    <activity
+        android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+        android:name=".view.settings.SettingsActivity"
+        android:label="@string/settings"
+        android:parentActivityName=".view.main.MainActivity"
+        android:theme="@style/AppTheme.ActionBar">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".view.main.MainActivity"/>
+    </activity>
 
   </application>
 

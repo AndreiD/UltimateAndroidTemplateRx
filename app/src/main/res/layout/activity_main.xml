@@ -167,20 +167,13 @@
       <Button
           android:layout_width="0dp"
           android:layout_height="match_parent"
-          android:text="Tomorrow"
-          android:id="@+id/button_main_tomorrow"
+          android:text="Next days"
+          android:id="@+id/button_main_next_days"
           android:layout_weight="1"
           android:textSize="12sp"
           />
 
-      <Button
-          android:layout_width="0dp"
-          android:layout_height="match_parent"
-          android:text="The day after tomorrow"
-          android:id="@+id/button_main_after_tomorrow"
-          android:layout_weight="1"
-          android:textSize="12sp"
-          />
+
     </LinearLayout>
 
   </RelativeLayout>

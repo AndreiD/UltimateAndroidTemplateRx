@@ -1,6 +1,7 @@
 package com.androidadvance.ultimateandroidtemplaterx.view.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
@@ -21,7 +22,7 @@ import com.androidadvance.ultimateandroidtemplaterx.util.DialogFactory;
 import com.androidadvance.ultimateandroidtemplaterx.util.UnitLocale;
 import com.androidadvance.ultimateandroidtemplaterx.view.BaseActivity;
 import com.androidadvance.ultimateandroidtemplaterx.view.fragment.DetailFragment;
-import com.androidadvance.ultimateandroidtemplaterx.view.settings.SettingsPreferenceFragment;
+import com.androidadvance.ultimateandroidtemplaterx.view.settings.SettingsActivity;
 import de.greenrobot.event.EventBus;
 import timber.log.Timber;
 
@@ -36,8 +37,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
   @Bind(R.id.textView_main_humidity) TextView textView_main_humidity;
   @Bind(R.id.textView_main_wind) TextView textView_main_wind;
   @Bind(R.id.imageView_main_icon) ImageView imageView_main_icon;
-  @Bind(R.id.button_main_tomorrow) Button button_main_tomorrow;
-  @Bind(R.id.button_main_after_tomorrow) Button button_main_after_tomorrow;
+  @Bind(R.id.button_main_next_days) Button button_main_next_days;
   private static ProgressBar mProgressBar = null;
   private MainPresenter presenter;
 
@@ -63,14 +63,9 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     presenter.loadWeather("Sofia,bg");
   }
 
-  @OnClick(R.id.button_main_tomorrow) void onClick_button_main_tomorrow() {
-    getSupportActionBar().setTitle("main_tomorrow");
+  @OnClick(R.id.button_main_next_days) void onClick_button_main_next_days() {
+    getSupportActionBar().setTitle("Next days");
     getSupportFragmentManager().beginTransaction().replace(R.id.container_rellayout, DetailFragment.newInstance(1)).addToBackStack(null).commit();
-  }
-
-  @OnClick(R.id.button_main_after_tomorrow) void onClickbutton_main_after_tomorrow() {
-    getSupportActionBar().setTitle("main_after_tomorrow");
-    getSupportFragmentManager().beginTransaction().replace(R.id.container_rellayout, DetailFragment.newInstance(2)).addToBackStack(null).commit();
   }
 
   @Override protected void onDestroy() {
@@ -87,14 +82,21 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     // Handle item selection
     switch (item.getItemId()) {
       case R.id.action_settings:
-        getSupportActionBar().setTitle(getString(R.string.settings));
-        getFragmentManager().beginTransaction().replace(R.id.container_rellayout, new SettingsPreferenceFragment()).addToBackStack(null).commit();
+        startActivity(new Intent(this, SettingsActivity.class));
         return true;
       case R.id.action_exit:
         finish();
         return true;
       case R.id.action_refresh:
-        presenter.loadWeather("Sofia,bg");
+
+        if(getFragmentManager().getBackStackEntryCount()>0){
+          //--- we are in the details fragment.
+
+        }else{
+          //--- we are here
+          presenter.loadWeather("Sofia,bg");
+        }
+
         return true;
       default:
         return super.onOptionsItemSelected(item);
@@ -155,7 +157,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
   }
 
   //http://openweathermap.org/weather-conditions
-  private static int getIcon(int weatherId) {
+  public static int getIcon(int weatherId) {
     if (weatherId >= 200 && weatherId <= 232) {
       return R.drawable.ic_thunderstorm;
     } else if (weatherId >= 300 && weatherId <= 321) {
