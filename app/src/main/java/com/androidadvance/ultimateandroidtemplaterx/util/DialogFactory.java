@@ -64,9 +64,9 @@ public final class DialogFactory {
     }
     Snackbar snack_error = Snackbar.make(rootView, message, Snackbar.LENGTH_LONG);
     View view = snack_error.getView();
-    view.setBackgroundColor(ContextCompat.getColor(mContext, R.color.error_background));
+    view.setBackgroundColor(ContextCompat.getColor(mContext, R.color.black_87pc));
     TextView tv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
-    tv.setTextColor(ContextCompat.getColor(mContext, R.color.primary_text));
+    tv.setTextColor(ContextCompat.getColor(mContext, R.color.material_red));
     return snack_error;
   }
 

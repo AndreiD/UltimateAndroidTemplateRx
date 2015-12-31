@@ -10,7 +10,6 @@
   <color name="text_color">#333333</color>
   <color name="navbar_color">@color/black_87pc</color>
 
-  <color name="error_background">#fc5d01</color>
 
   <color name="primary_text">#212121</color>
   <color name="secondary_text">#727272</color>

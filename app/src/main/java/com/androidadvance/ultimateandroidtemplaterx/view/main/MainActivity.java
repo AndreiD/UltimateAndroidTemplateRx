@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
   @Bind(R.id.imageView_main_icon) ImageView imageView_main_icon;
   @Bind(R.id.button_main_tomorrow) Button button_main_tomorrow;
   @Bind(R.id.button_main_after_tomorrow) Button button_main_after_tomorrow;
-  private ProgressBar mProgressBar;
+  private static ProgressBar mProgressBar = null;
   private MainPresenter presenter;
 
   @Override public void onCreate(Bundle savedInstanceState) {
@@ -113,12 +113,11 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
   public void onEvent(MessagesEvent event) {
 
-    if(event.ismSuccess()){
-      DialogFactory.createSimpleOkDialog(MainActivity.this,getString(R.string.app_name),event.getMessage()).show();
-    }else{
-      DialogFactory.showErrorSnackBar(MainActivity.this,findViewById(android.R.id.content),new Throwable(event.getMessage())).show();
+    if (event.ismSuccess()) {
+      DialogFactory.createSimpleOkDialog(MainActivity.this, getString(R.string.app_name), event.getMessage()).show();
+    } else {
+      DialogFactory.showErrorSnackBar(MainActivity.this, findViewById(android.R.id.content), new Throwable(event.getMessage())).show();
     }
-
   }
 
   @Override public void showWeather(WeatherPojo weatherPojo) {
@@ -140,8 +139,11 @@ public class MainActivity extends BaseActivity implements MainMvpView {
   }
 
   @Override public void showProgress() {
-    mProgressBar = DialogFactory.DProgressBar(MainActivity.this);
-    mProgressBar.setVisibility(View.VISIBLE);
+    if (mProgressBar == null) {
+      mProgressBar = DialogFactory.DProgressBar(MainActivity.this);
+    } else {
+      mProgressBar.setVisibility(View.VISIBLE);
+    }
   }
 
   @Override public void hideProgress() {
