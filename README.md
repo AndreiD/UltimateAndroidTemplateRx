@@ -26,8 +26,8 @@ How to use it:
 * Modify applicationId "com.andrei.template" to your package name
 * Check the compileSdkVersion, and buildToolsVersion to be the latest
 * IMPORTANT: Remove the libs that you don't need. Add those that you do. Profit!
+* Make sure you write nice code by checking with /.gradlew check 
 * Star this repository :)
-
 
 What it contains
 ------------
