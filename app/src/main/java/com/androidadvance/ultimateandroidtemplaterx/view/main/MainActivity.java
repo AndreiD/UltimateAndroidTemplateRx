@@ -25,6 +25,7 @@ import com.androidadvance.ultimateandroidtemplaterx.view.BaseActivity;
 import com.androidadvance.ultimateandroidtemplaterx.view.fragment.DetailFragment;
 import com.androidadvance.ultimateandroidtemplaterx.view.settings.SettingsActivity;
 import de.greenrobot.event.EventBus;
+import hotchemi.android.rate.AppRate;
 import timber.log.Timber;
 
 public class MainActivity extends BaseActivity implements MainMvpView {
@@ -61,6 +62,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     });
 
     presenter.loadWeather("Sofia,bg");
+    rate_this_app_logic();
   }
 
   @OnClick(R.id.button_main_next_days) void onClick_button_main_next_days() {
@@ -182,5 +184,10 @@ public class MainActivity extends BaseActivity implements MainMvpView {
       return R.drawable.ic_cloudy;
     }
     return -1;
+  }
+
+  private void rate_this_app_logic() {
+    AppRate.with(this).setInstallDays(10).setLaunchTimes(10).setRemindInterval(2).setShowLaterButton(false).setDebug(false).monitor();
+    AppRate.showRateDialogIfMeetsConditions(this);
   }
 }
