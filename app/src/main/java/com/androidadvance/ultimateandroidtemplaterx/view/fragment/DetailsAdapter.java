@@ -1,28 +1,21 @@
 package com.androidadvance.ultimateandroidtemplaterx.view.fragment;
 
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.androidadvance.ultimateandroidtemplaterx.R;
 import com.androidadvance.ultimateandroidtemplaterx.events.DetailSelectedEvent;
 import com.androidadvance.ultimateandroidtemplaterx.view.main.MainActivity;
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
-
-import butterknife.ButterKnife;
-
 import de.greenrobot.event.EventBus;
-import timber.log.Timber;
+import java.util.List;
 
 public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHolder> {
   private final int NOTIFY_DELAY = 500;

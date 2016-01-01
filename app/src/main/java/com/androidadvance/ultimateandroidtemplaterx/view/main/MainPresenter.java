@@ -47,7 +47,7 @@ public class MainPresenter implements Presenter<MainMvpView> {
 
     subscription = apiService.getWeatherForCity(weather_from_where, "metric")
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribeOn(baseApplication.defaultSubscribeScheduler())
+        .subscribeOn(baseApplication.getSubscribeScheduler())
         .subscribe(new Subscriber<WeatherPojo>() {
           @Override public void onCompleted() {
             Timber.i("Weather loaded " + weatherPojo);

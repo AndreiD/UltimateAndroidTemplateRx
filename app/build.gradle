@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 
+apply from: '../config/quality.gradle'
+
 android {
   compileSdkVersion 23
   buildToolsVersion "23.0.2"
@@ -126,4 +128,9 @@ task clean(type: Exec) {
   ext.lockhunter = '\"C:\\Program Files\\LockHunter\\LockHunter.exe"'
   def buildDir = file(new File("build"))
   commandLine 'cmd', "$lockhunter", '/delete', '/silent', buildDir
+}
+
+// Log out test results to console
+tasks.matching {it instanceof Test}.all {
+  testLogging.events = ["failed", "passed", "skipped"]
 }

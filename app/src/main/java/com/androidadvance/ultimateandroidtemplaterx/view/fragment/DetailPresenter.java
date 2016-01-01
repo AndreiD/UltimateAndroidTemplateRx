@@ -35,7 +35,7 @@ public class DetailPresenter implements Presenter<DetailMvpView> {
 
     subscription = apiService.getForecastForCity(weather_from_where, "metric")
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribeOn(baseApplication.defaultSubscribeScheduler())
+        .subscribeOn(baseApplication.getSubscribeScheduler())
         .subscribe(new Subscriber<Forecast>() {
           @Override public void onCompleted() {
             Timber.i("Forcast loaded %s", forecast);
