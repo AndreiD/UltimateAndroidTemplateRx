@@ -15,6 +15,7 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.androidadvance.ultimateandroidtemplaterx.BaseApplication;
 import com.androidadvance.ultimateandroidtemplaterx.R;
 import com.androidadvance.ultimateandroidtemplaterx.events.MessagesEvent;
 import com.androidadvance.ultimateandroidtemplaterx.model.weather.WeatherPojo;
@@ -28,7 +29,6 @@ import timber.log.Timber;
 
 public class MainActivity extends BaseActivity implements MainMvpView {
 
-  @Bind(R.id.toolbar) Toolbar toolbar;
   @Bind(R.id.textview_main_city) TextView textview_main_city;
   @Bind(R.id.textView_main_conditions) TextView textView_main_conditions;
   @Bind(R.id.textView_main_current_temperature) TextView textView_main_current_temperature;
@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     presenter = new MainPresenter();
     presenter.attachView(this);
 
-    setSupportActionBar(toolbar);
+    getSupportActionBar().setElevation(0);
 
     getSupportFragmentManager().addOnBackStackChangedListener(() -> {
       if (getSupportFragmentManager().getBackStackEntryCount() > 0) {

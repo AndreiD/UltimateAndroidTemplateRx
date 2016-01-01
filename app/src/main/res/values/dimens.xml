@@ -2,13 +2,7 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-
-    <dimen name="text_headline">24sp</dimen>
-    <dimen name="text_large_title">22sp</dimen>
-    <dimen name="text_title">20sp</dimen>
-    <dimen name="text_large_body">18sp</dimen>
-    <dimen name="text_body">16sp</dimen>
-    <dimen name="text_small_body">14sp</dimen>
+    <dimen name="progressBar_dimen">200dp</dimen>
 
     <dimen name="spacing_micro">4dp</dimen>
     <dimen name="spacing_normal">8dp</dimen>
@@ -24,5 +18,4 @@
     <integer name="anim_duration_very_long">1500</integer>
     <integer name="anim_duration_long">500</integer>
     <integer name="anim_duration_medium">300</integer>
-
 </resources>
