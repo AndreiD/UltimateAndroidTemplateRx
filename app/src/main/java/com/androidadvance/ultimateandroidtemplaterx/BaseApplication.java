@@ -3,7 +3,7 @@ package com.androidadvance.ultimateandroidtemplaterx;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
-import com.androidadvance.ultimateandroidtemplaterx.data.remote.ApiService;
+import com.androidadvance.ultimateandroidtemplaterx.data.remote.TheAPIService;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import rx.Scheduler;
 import rx.schedulers.Schedulers;
@@ -11,7 +11,7 @@ import timber.log.Timber;
 
 public class BaseApplication extends Application {
 
-  private ApiService apiService;
+  private TheAPIService apiService;
   private Scheduler defaultSubscribeScheduler;
 
   @Override public void onCreate() {
@@ -29,9 +29,9 @@ public class BaseApplication extends Application {
     //Delete.table(DbModel.class);
   }
 
-  public ApiService getApiService() {
+  public TheAPIService getApiService() {
     if (apiService == null) {
-      apiService = ApiService.Factory.getApi();
+      apiService = TheAPIService.Factory.getApi();
     }
     return apiService;
   }

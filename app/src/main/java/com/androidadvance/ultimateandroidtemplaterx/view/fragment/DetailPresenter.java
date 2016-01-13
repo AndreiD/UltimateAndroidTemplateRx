@@ -1,7 +1,7 @@
 package com.androidadvance.ultimateandroidtemplaterx.view.fragment;
 
 import com.androidadvance.ultimateandroidtemplaterx.BaseApplication;
-import com.androidadvance.ultimateandroidtemplaterx.data.remote.ApiService;
+import com.androidadvance.ultimateandroidtemplaterx.data.remote.TheAPIService;
 import com.androidadvance.ultimateandroidtemplaterx.model.forecast.Forecast;
 import com.androidadvance.ultimateandroidtemplaterx.presenter.Presenter;
 import rx.Subscriber;
@@ -31,7 +31,7 @@ public class DetailPresenter implements Presenter<DetailMvpView> {
     if (subscription != null) subscription.unsubscribe();
 
     BaseApplication baseApplication = BaseApplication.get(detailMvpView.getContext());
-    ApiService apiService = baseApplication.getApiService();
+    TheAPIService apiService = baseApplication.getApiService();
 
     subscription = apiService.getForecastForCity(weather_from_where, "metric")
         .observeOn(AndroidSchedulers.mainThread())

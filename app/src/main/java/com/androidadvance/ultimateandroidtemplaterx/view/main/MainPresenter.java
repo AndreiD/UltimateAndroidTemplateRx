@@ -4,7 +4,7 @@ import com.androidadvance.ultimateandroidtemplaterx.BaseApplication;
 import com.androidadvance.ultimateandroidtemplaterx.R;
 import com.androidadvance.ultimateandroidtemplaterx.data.local.DbModel;
 import com.androidadvance.ultimateandroidtemplaterx.data.local.DbModel_Table;
-import com.androidadvance.ultimateandroidtemplaterx.data.remote.ApiService;
+import com.androidadvance.ultimateandroidtemplaterx.data.remote.TheAPIService;
 import com.androidadvance.ultimateandroidtemplaterx.events.MessagesEvent;
 import com.androidadvance.ultimateandroidtemplaterx.model.weather.WeatherPojo;
 import com.androidadvance.ultimateandroidtemplaterx.presenter.Presenter;
@@ -43,7 +43,7 @@ public class MainPresenter implements Presenter<MainMvpView> {
     if (subscription != null) subscription.unsubscribe();
 
     BaseApplication baseApplication = BaseApplication.get(mainMvpView.getContext());
-    ApiService apiService = baseApplication.getApiService();
+    TheAPIService apiService = baseApplication.getApiService();
 
     subscription = apiService.getWeatherForCity(weather_from_where, "metric")
         .observeOn(AndroidSchedulers.mainThread())
