@@ -58,7 +58,7 @@ public class MainPresenter implements Presenter<MainMvpView> {
           }
 
           @Override public void onError(Throwable error) {
-            Timber.e(error, "Error loading weather ");
+            Timber.e(error, "Error loading weather");
             if (isHttp404(error)) {
               EventBus.getDefault().post(new MessagesEvent(false, baseApplication.getString(R.string.error_not_found)));
             } else {
