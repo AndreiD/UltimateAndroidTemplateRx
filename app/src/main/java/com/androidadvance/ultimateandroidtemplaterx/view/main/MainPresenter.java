@@ -1,23 +1,32 @@
 package com.androidadvance.ultimateandroidtemplaterx.view.main;
 
+import android.content.Context;
 import com.androidadvance.ultimateandroidtemplaterx.BaseApplication;
 import com.androidadvance.ultimateandroidtemplaterx.R;
 import com.androidadvance.ultimateandroidtemplaterx.data.local.DbModel;
 import com.androidadvance.ultimateandroidtemplaterx.data.local.DbModel_Table;
-import com.androidadvance.ultimateandroidtemplaterx.data.remote.TheAPIService;
+import com.androidadvance.ultimateandroidtemplaterx.data.remote.APIService;
 import com.androidadvance.ultimateandroidtemplaterx.events.MessagesEvent;
 import com.androidadvance.ultimateandroidtemplaterx.model.weather.WeatherPojo;
 import com.androidadvance.ultimateandroidtemplaterx.presenter.Presenter;
 import com.google.gson.Gson;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.socks.library.KLog;
 import de.greenrobot.event.EventBus;
+import javax.inject.Inject;
 import retrofit.HttpException;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import timber.log.Timber;
 
 public class MainPresenter implements Presenter<MainMvpView> {
+
+  @Inject public MainPresenter(Context ctx) {
+    ((BaseApplication) ctx.getApplicationContext()).getApplicationComponent().inject(this);
+  }
+
+  @Inject APIService apiService;
+  @Inject EventBus mEventBus;
 
   private MainMvpView mainMvpView;
   private Subscription subscription;
@@ -43,14 +52,13 @@ public class MainPresenter implements Presenter<MainMvpView> {
     if (subscription != null) subscription.unsubscribe();
 
     BaseApplication baseApplication = BaseApplication.get(mainMvpView.getContext());
-    TheAPIService apiService = baseApplication.getApiService();
 
     subscription = apiService.getWeatherForCity(weather_from_where, "metric")
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(baseApplication.getSubscribeScheduler())
         .subscribe(new Subscriber<WeatherPojo>() {
           @Override public void onCompleted() {
-            Timber.i("Weather loaded " + weatherPojo);
+            KLog.i("Weather loaded " + weatherPojo);
             mainMvpView.showWeather(weatherPojo);
             mainMvpView.hideProgress();
 
@@ -58,11 +66,11 @@ public class MainPresenter implements Presenter<MainMvpView> {
           }
 
           @Override public void onError(Throwable error) {
-            Timber.e(error, "Error loading weather");
+            KLog.e("Error loading weather", error);
             if (isHttp404(error)) {
-              EventBus.getDefault().post(new MessagesEvent(false, baseApplication.getString(R.string.error_not_found)));
+              mEventBus.post(new MessagesEvent(false, baseApplication.getString(R.string.error_not_found)));
             } else {
-              EventBus.getDefault().post(new MessagesEvent(false, baseApplication.getString(R.string.error_loading_weather)));
+              mEventBus.post(new MessagesEvent(false, baseApplication.getString(R.string.error_loading_weather)));
             }
 
             mainMvpView.hideProgress();
@@ -82,11 +90,11 @@ public class MainPresenter implements Presenter<MainMvpView> {
 
     if (count == 0) {
       DbModel dbModel = new DbModel(serialized, "", System.currentTimeMillis());
-      dbModel.async().withListener(model -> Timber.d("Saved in the db")).save();
+      dbModel.async().withListener(model -> KLog.d("Saved in the db")).save();
     } else {
       DbModel dbModel = new DbModel(serialized, "", System.currentTimeMillis());
       dbModel.setId(1);
-      dbModel.async().withListener(model -> Timber.d("Updated")).update();
+      dbModel.async().withListener(model -> KLog.d("Updated")).update();
     }
   }
 
@@ -94,10 +102,10 @@ public class MainPresenter implements Presenter<MainMvpView> {
     long count = SQLite.selectCountOf(DbModel_Table.id).from(DbModel.class).count();
     if (count > 0) {
       DbModel dbModel = SQLite.select().from(DbModel.class).querySingle();
-      Timber.d("loading weather from the db!");
+      KLog.d("loading weather from the db!");
       mainMvpView.showWeather(new Gson().fromJson(dbModel.getCurrent_weather(), WeatherPojo.class));
-    }else{
-      Timber.d("nothing in the database");
+    } else {
+      KLog.d("nothing in the database");
     }
   }
 

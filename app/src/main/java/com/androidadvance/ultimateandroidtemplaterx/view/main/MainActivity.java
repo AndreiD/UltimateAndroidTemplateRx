@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,20 +14,20 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.androidadvance.ultimateandroidtemplaterx.BaseApplication;
 import com.androidadvance.ultimateandroidtemplaterx.R;
 import com.androidadvance.ultimateandroidtemplaterx.events.MessagesEvent;
 import com.androidadvance.ultimateandroidtemplaterx.model.weather.WeatherPojo;
 import com.androidadvance.ultimateandroidtemplaterx.util.DialogFactory;
 import com.androidadvance.ultimateandroidtemplaterx.util.UnitLocale;
-import com.androidadvance.ultimateandroidtemplaterx.view.BaseActivity;
 import com.androidadvance.ultimateandroidtemplaterx.view.fragment.DetailFragment;
 import com.androidadvance.ultimateandroidtemplaterx.view.settings.SettingsActivity;
+import com.socks.library.KLog;
 import de.greenrobot.event.EventBus;
 import hotchemi.android.rate.AppRate;
-import timber.log.Timber;
+import javax.inject.Inject;
 
-public class MainActivity extends BaseActivity implements MainMvpView {
+
+public class MainActivity extends com.androidadvance.ultimateandroidtemplaterx.view.BaseActivity implements MainMvpView {
 
   @Bind(R.id.textview_main_city) TextView textview_main_city;
   @Bind(R.id.textView_main_conditions) TextView textView_main_conditions;
@@ -42,12 +41,15 @@ public class MainActivity extends BaseActivity implements MainMvpView {
   private static ProgressBar mProgressBar = null;
   private MainPresenter presenter;
 
+  @Inject EventBus eventBus;
+
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    getComponent().inject(this);
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
 
-    presenter = new MainPresenter();
+    presenter = new MainPresenter(this);
     presenter.attachView(this);
 
     getSupportActionBar().setElevation(0);
@@ -91,10 +93,10 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         return true;
       case R.id.action_refresh:
 
-        if(getFragmentManager().getBackStackEntryCount()>0){
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
           //--- we are in the details fragment.
 
-        }else{
+        } else {
           //--- we are here
           presenter.loadWeather("Sofia,bg");
         }
@@ -107,11 +109,11 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
   @Override public void onStart() {
     super.onStart();
-    EventBus.getDefault().register(this);
+    eventBus.register(this);
   }
 
   @Override public void onStop() {
-    EventBus.getDefault().unregister(this);
+    eventBus.unregister(this);
     super.onStop();
   }
 
@@ -126,7 +128,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
   @Override public void showWeather(WeatherPojo weatherPojo) {
 
-    Timber.d("show Weather %s", weatherPojo.toString());
+    KLog.d("show Weather %s", weatherPojo.toString());
 
     textview_main_city.setText(weatherPojo.getName());
     textView_main_current_temperature.setText(String.format("%.1f°", weatherPojo.getMain().getTemp()));

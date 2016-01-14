@@ -45,7 +45,7 @@
           android:layout_toEndOf="@+id/row_imageView_forecast"
           android:layout_toRightOf="@+id/row_imageView_forecast"
           android:maxLines="2"
-          android:text="forecast...."
+          android:text="@string/forecast"
           android:textIsSelectable="false"
           android:textSize="@dimen/abc_text_size_small_material"
           />

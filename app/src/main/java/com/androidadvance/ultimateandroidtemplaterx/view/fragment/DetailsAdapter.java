@@ -69,11 +69,9 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHold
     // notify of the insertion with a delay, so there is a brief pause after returning
     // from the new book screen; this makes the animation more noticeable
     Handler handler = new Handler();
-    handler.postDelayed(new Runnable() {
-      @Override public void run() {
-        mListForecast.add(position, forecast);
-        notifyItemInserted(position);
-      }
+    handler.postDelayed(() -> {
+      mListForecast.add(position, forecast);
+      notifyItemInserted(position);
     }, NOTIFY_DELAY);
   }
 
@@ -83,10 +81,6 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHold
     // notify of the removal with a delay so there is a brief pause after returning
     // from the book details screen; this makes the animation more noticeable
     Handler handler = new Handler();
-    handler.postDelayed(new Runnable() {
-      @Override public void run() {
-        notifyItemRemoved(position);
-      }
-    }, NOTIFY_DELAY);
+    handler.postDelayed(() -> notifyItemRemoved(position), NOTIFY_DELAY);
   }
 }

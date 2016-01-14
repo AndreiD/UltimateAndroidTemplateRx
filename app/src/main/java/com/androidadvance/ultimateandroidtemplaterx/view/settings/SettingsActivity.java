@@ -1,20 +1,27 @@
 package com.androidadvance.ultimateandroidtemplaterx.view.settings;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import com.androidadvance.ultimateandroidtemplaterx.R;
+import com.androidadvance.ultimateandroidtemplaterx.data.local.PreferencesHelper;
+import com.androidadvance.ultimateandroidtemplaterx.view.BaseActivity;
+import javax.inject.Inject;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends BaseActivity {
+
+  @Inject PreferencesHelper preferencesHelper;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    getComponent().inject(this);
     getFragmentManager().beginTransaction().replace(android.R.id.content, new MyPreferenceFragment()).commit();
 
     getSupportActionBar().setElevation(0);
@@ -35,7 +42,7 @@ public class SettingsActivity extends AppCompatActivity {
       super.onCreate(savedInstanceState);
       addPreferencesFromResource(R.xml.settings);
 
-      Preference version = (Preference) findPreference("version");
+      Preference version = findPreference("version");
       try {
         String versionName = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName;
         version.setSummary(versionName);
@@ -53,5 +60,14 @@ public class SettingsActivity extends AppCompatActivity {
         return true;
       });
     }
+  }
+
+  @Override protected void onPause() {
+    super.onPause();
+
+    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+    boolean notificationsPrefs = prefs.getBoolean("prefs_notifications", false);
+
+    preferencesHelper.setNotificationsPrefs(notificationsPrefs);
   }
 }

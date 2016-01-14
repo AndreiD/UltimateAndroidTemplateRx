@@ -3,16 +3,23 @@ package com.androidadvance.ultimateandroidtemplaterx;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
-import com.androidadvance.ultimateandroidtemplaterx.data.remote.TheAPIService;
+import android.support.annotation.VisibleForTesting;
+import com.androidadvance.ultimateandroidtemplaterx.di.component.ApplicationComponent;
+import com.androidadvance.ultimateandroidtemplaterx.di.component.DaggerApplicationComponent;
+import com.androidadvance.ultimateandroidtemplaterx.di.module.ApplicationModule;
+import com.androidadvance.ultimateandroidtemplaterx.events.AuthenticationErrorEvent;
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.socks.library.KLog;
+import de.greenrobot.event.EventBus;
+import javax.inject.Inject;
 import rx.Scheduler;
 import rx.schedulers.Schedulers;
-import timber.log.Timber;
 
 public class BaseApplication extends Application {
 
-  private TheAPIService apiService;
   private Scheduler defaultSubscribeScheduler;
+  private ApplicationComponent applicationComponent;
+  @Inject EventBus eventBus;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -20,20 +27,32 @@ public class BaseApplication extends Application {
     boolean isDebuggable = (0 != (getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE));
 
     if (isDebuggable) {
-      Timber.plant(new Timber.DebugTree());
+      KLog.init(true);
+    } else {
+      KLog.init(false);
     }
 
+    //------ database init ------
     FlowManager.init(this);
 
-    //use this to clear the database
     //Delete.table(DbModel.class);
+
+    applicationComponent = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
+
+    applicationComponent.inject(this);
+    eventBus.register(this);
   }
 
-  public TheAPIService getApiService() {
-    if (apiService == null) {
-      apiService = TheAPIService.Factory.getApi();
-    }
-    return apiService;
+  public static BaseApplication get(Context context) {
+    return (BaseApplication) context.getApplicationContext();
+  }
+
+  public ApplicationComponent getApplicationComponent() {
+    return applicationComponent;
+  }
+
+  @VisibleForTesting public void setApplicationComponent(ApplicationComponent applicationComponent) {
+    applicationComponent = applicationComponent;
   }
 
   public Scheduler getSubscribeScheduler() {
@@ -45,10 +64,15 @@ public class BaseApplication extends Application {
 
   @Override public void onLowMemory() {
     super.onLowMemory();
-    Timber.e("##### onLowMemory #####");
+    KLog.e("########## onLowMemory ##########");
   }
 
-  public static BaseApplication get(Context context) {
-    return (BaseApplication) context.getApplicationContext();
+  @Override public void onTerminate() {
+    eventBus.unregister(this);
+    super.onTerminate();
+  }
+
+  public void onEvent(AuthenticationErrorEvent event) {
+    KLog.e("Unauthorized! Redirect to Signin Activity...");
   }
 }

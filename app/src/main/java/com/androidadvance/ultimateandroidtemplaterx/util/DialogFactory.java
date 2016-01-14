@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.androidadvance.ultimateandroidtemplaterx.R;
-import com.androidadvance.ultimateandroidtemplaterx.view.main.MainActivity;
+
 
 public final class DialogFactory {
 
@@ -45,7 +45,7 @@ public final class DialogFactory {
       message = throwable.getLocalizedMessage();
 
     }
-    Snackbar snack_error = Snackbar.make(rootView, throwable.getLocalizedMessage(), Snackbar.LENGTH_LONG);
+    Snackbar snack_error = Snackbar.make(rootView, message, Snackbar.LENGTH_LONG);
     View view = snack_error.getView();
     TextView tv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
     tv.setTextColor(ContextCompat.getColor(mContext, R.color.material_red));

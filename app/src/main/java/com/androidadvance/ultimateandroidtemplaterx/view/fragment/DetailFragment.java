@@ -15,15 +15,16 @@ import com.androidadvance.ultimateandroidtemplaterx.R;
 import com.androidadvance.ultimateandroidtemplaterx.events.DetailSelectedEvent;
 import com.androidadvance.ultimateandroidtemplaterx.model.forecast.Forecast;
 import com.androidadvance.ultimateandroidtemplaterx.view.BaseFragment;
+import com.socks.library.KLog;
 import de.greenrobot.event.EventBus;
-import timber.log.Timber;
+
 
 public class DetailFragment extends BaseFragment implements DetailMvpView {
 
   private static final String ARG_EXAMPLE = "ARG_EXAMPLE";
   @Bind(R.id.recyclerview_details) RecyclerView recyclerview_details;
   private DetailPresenter presenter;
-  private int example_argument;
+
 
   public static DetailFragment newInstance(int example_argument) {
     DetailFragment detailFragment = new DetailFragment();
@@ -36,7 +37,7 @@ public class DetailFragment extends BaseFragment implements DetailMvpView {
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    presenter = new DetailPresenter();
+    presenter = new DetailPresenter(getActivity());
     presenter.attachView(this);
     presenter.loadForcast("Sofia,bg");
 
@@ -50,7 +51,7 @@ public class DetailFragment extends BaseFragment implements DetailMvpView {
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    example_argument = getArguments().getInt(ARG_EXAMPLE);
+    int example_argument = getArguments().getInt(ARG_EXAMPLE);
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,7 +75,7 @@ public class DetailFragment extends BaseFragment implements DetailMvpView {
   }
 
   public void onEvent(DetailSelectedEvent event) {
-    Timber.d(">>> %s", event.details_object);
+    KLog.d(">>> %s", event.details_object);
   }
 
   @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

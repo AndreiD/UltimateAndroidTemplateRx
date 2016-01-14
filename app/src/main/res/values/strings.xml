@@ -35,7 +35,9 @@
     <string name="general">General</string>
     <string name="action_refresh">Refresh</string>
     <string name="image">Image</string>
-    <string name="generic_error_title">Ops! An error occured.</string>
+    <string name="generic_error_title">Ops! An error occurred.</string>
+    <string name="next_days">Next Days</string>
+    <string name="forecast">Forecast</string>
 
 
 </resources>
