@@ -33,11 +33,92 @@ What it contains
 ------------
 
 ~~~~
- //----- Support Libs
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
+
+apply from: '../config/quality.gradle'
+
+android {
+  compileSdkVersion 23
+  buildToolsVersion "23.0.2"
+
+  dexOptions {
+    incremental true
+  }
+
+  signingConfigs {
+    config {
+      keyAlias 'keystore'
+      keyPassword '123123'
+      storeFile file('keystore/keystore.jks')
+      storePassword '123123'
+    }
+  }
+
+  defaultConfig {
+    applicationId "com.androidadvance.ultimateandroidtemplaterx"
+    minSdkVersion 15
+    targetSdkVersion 23
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  buildTypes {
+    release {
+      minifyEnabled true
+      shrinkResources true
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      signingConfig signingConfigs.config
+    }
+    debug {
+      applicationIdSuffix ".debug"
+      debuggable true
+    }
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+
+  packagingOptions {
+    exclude 'META-INF/DEPENDENCIES'
+    exclude 'LICENSE.txt'
+    exclude 'META-INF/LICENSE'
+    exclude 'META-INF/LICENSE.txt'
+    exclude 'META-INF/NOTICE'
+    exclude 'LICENSE.txt'
+  }
+
+  lintOptions {
+    warning 'InvalidPackage'
+    abortOnError false
+    lintConfig file("${project.rootDir}/config/quality/lint/lint.xml")
+  }
+
+  configurations.all {
+    resolutionStrategy {
+      force 'com.android.support:support-annotations:23.0.1'
+    }
+  }
+}
+
+
+dependencies {
+
+  compile fileTree(dir: 'libs', include: ['*.jar'])
+
+  //----- Support Libs
   compile "com.android.support:appcompat-v7:23.1.1"
   compile "com.android.support:design:23.1.1"
   compile "com.android.support:recyclerview-v7:23.1.1"
   compile "com.android.support:cardview-v7:23.1.1"
+
+  //----- Dagger
+  compile "com.google.dagger:dagger:2.0.2"
+  apt "com.google.dagger:dagger-compiler:2.0.2"
+  provided 'org.glassfish:javax.annotation:10.0-b28' //Required by Dagger2
 
   //----- Rx
   compile "io.reactivex:rxandroid:1.1.0"
@@ -61,8 +142,8 @@ What it contains
   //----- Eventbuss
   compile "de.greenrobot:eventbus:2.4.0"
 
-  //----- Timber
-  compile "com.jakewharton.timber:timber:4.1.0"
+  //----- Logging
+  compile 'com.github.zhaokaiqiang.klog:library:1.3.0'
 
   //----- Picasso
   compile "com.squareup.picasso:picasso:2.5.2"
@@ -71,16 +152,34 @@ What it contains
   compile "com.mikhaellopez:circularimageview:2.1.1"
 
   //----- Easy Permission Management
-  compile "com.karumi:dexter:2.1.2"
+  compile "com.karumi:dexter:2.2.0"
 
   //----- Annotations
   compile "org.glassfish:javax.annotation:10.0-b28"
 
+  //----- Rate this app
+  compile 'com.github.hotchemi:android-rate:0.5.6'
+
   //----- Testing
+  testCompile 'junit:junit:4.12'
+  androidTestApt "com.google.dagger:dagger-compiler:2.0.2"
   androidTestCompile "com.android.support.test:runner:0.4"
   androidTestCompile "com.android.support.test:rules:0.4"
   androidTestCompile "com.android.support.test.espresso:espresso-core:2.2.1"
   androidTestCompile "org.hamcrest:hamcrest-library:1.3"
+  androidTestCompile "org.hamcrest:hamcrest-library:1.3"
+}
+
+task clean(type: Exec) {
+  ext.lockhunter = '\"C:\\Program Files\\LockHunter\\LockHunter.exe"'
+  def buildDir = file(new File("build"))
+  commandLine 'cmd', "$lockhunter", '/delete', '/silent', buildDir
+}
+
+// Log out test results to console
+tasks.matching {it instanceof Test}.all {
+  testLogging.events = ["failed", "passed", "skipped"]
+}
 ~~~~
 
 Need more nice stuff ?
