@@ -193,7 +193,7 @@ Attributions
 
 Thanks to the following for their work:
 
-[ribot guys] (https://github.com/ribot)
+[ribot guys] (https://github.com/ribot) [yigit] (https://github.com/yigit/dev-summit-architecture-demo/)
 - Icons by http://vclouds.deviantart.com/
 
 
