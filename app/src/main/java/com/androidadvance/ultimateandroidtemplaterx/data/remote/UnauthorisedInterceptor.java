@@ -5,11 +5,12 @@ import android.os.Handler;
 import android.os.Looper;
 import com.androidadvance.ultimateandroidtemplaterx.BaseApplication;
 import com.androidadvance.ultimateandroidtemplaterx.events.AuthenticationErrorEvent;
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.Response;
+
 import de.greenrobot.event.EventBus;
 import java.io.IOException;
 import javax.inject.Inject;
+import okhttp3.Interceptor;
+import okhttp3.Response;
 
 public class UnauthorisedInterceptor implements Interceptor {
 

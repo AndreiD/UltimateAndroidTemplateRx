@@ -14,7 +14,7 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.socks.library.KLog;
 import de.greenrobot.event.EventBus;
 import javax.inject.Inject;
-import retrofit.HttpException;
+import retrofit2.HttpException;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;

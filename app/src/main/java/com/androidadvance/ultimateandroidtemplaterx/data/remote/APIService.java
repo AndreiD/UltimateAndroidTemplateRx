@@ -4,14 +4,16 @@ import android.content.Context;
 import com.androidadvance.ultimateandroidtemplaterx.BuildConfig;
 import com.androidadvance.ultimateandroidtemplaterx.model.forecast.Forecast;
 import com.androidadvance.ultimateandroidtemplaterx.model.weather.WeatherPojo;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.logging.HttpLoggingInterceptor;
+
 import java.util.concurrent.TimeUnit;
-import retrofit.GsonConverterFactory;
-import retrofit.Retrofit;
-import retrofit.RxJavaCallAdapterFactory;
-import retrofit.http.GET;
-import retrofit.http.Query;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.GsonConverterFactory;
+import retrofit2.Retrofit;
+import retrofit2.RxJavaCallAdapterFactory;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 import rx.Observable;
 
 public interface APIService {
@@ -29,23 +31,25 @@ public interface APIService {
 
     public static APIService create(Context context) {
 
-      OkHttpClient client = new OkHttpClient();
-      client.interceptors().add(new UnauthorisedInterceptor(context));
-      client.setConnectTimeout(5, TimeUnit.SECONDS);
-      client.setReadTimeout(10, TimeUnit.SECONDS);
+      OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
+      builder.readTimeout(10, TimeUnit.SECONDS);
+      builder.connectTimeout(5, TimeUnit.SECONDS);
 
       if (BuildConfig.DEBUG) {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
-        client.interceptors().add(interceptor);
+        builder.addInterceptor(interceptor);
       }
 
       //Extra Headers
 
-      //client.networkInterceptors().add(chain -> {
+      //builder.addNetworkInterceptor().add(chain -> {
       //  Request request = chain.request().newBuilder().addHeader("Authorization", authToken).build();
       //  return chain.proceed(request);
       //});
+
+      builder.addInterceptor(new UnauthorisedInterceptor(context));
+      OkHttpClient client = builder.build();
 
       Retrofit retrofit =
           new Retrofit.Builder().baseUrl(APIService.ENDPOINT).client(client).addConverterFactory(GsonConverterFactory.create()).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
