@@ -16,8 +16,8 @@ import com.androidadvance.ultimateandroidtemplaterx.events.DetailSelectedEvent;
 import com.androidadvance.ultimateandroidtemplaterx.model.forecast.Forecast;
 import com.androidadvance.ultimateandroidtemplaterx.view.BaseFragment;
 import com.socks.library.KLog;
-import de.greenrobot.event.EventBus;
-
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class DetailFragment extends BaseFragment implements DetailMvpView {
 
@@ -74,6 +74,7 @@ public class DetailFragment extends BaseFragment implements DetailMvpView {
     super.onStop();
   }
 
+  @Subscribe
   public void onEvent(DetailSelectedEvent event) {
     KLog.d(">>> %s", event.details_object);
   }

@@ -7,8 +7,8 @@ import com.androidadvance.ultimateandroidtemplaterx.di.module.ApplicationModule;
 import com.androidadvance.ultimateandroidtemplaterx.view.fragment.DetailPresenter;
 import com.androidadvance.ultimateandroidtemplaterx.view.main.MainPresenter;
 import dagger.Component;
-import de.greenrobot.event.EventBus;
 import javax.inject.Singleton;
+import org.greenrobot.eventbus.EventBus;
 
 @Singleton
 @Component(modules = { ApplicationModule.class })

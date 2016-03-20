@@ -8,8 +8,8 @@ import com.androidadvance.ultimateandroidtemplaterx.data.remote.APIService;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import dagger.Module;
 import dagger.Provides;
-import de.greenrobot.event.EventBus;
 import javax.inject.Singleton;
+import org.greenrobot.eventbus.EventBus;
 
 @Module
 public class ApplicationModule {
@@ -39,8 +39,4 @@ public class ApplicationModule {
   @Provides @Singleton public SQLiteDatabase database() {
     return FlowManager.getDatabase(WeatherDatabase.NAME).getWritableDatabase();
   }
-
-
-
-
 }

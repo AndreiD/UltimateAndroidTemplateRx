@@ -22,10 +22,10 @@ import com.androidadvance.ultimateandroidtemplaterx.util.UnitLocale;
 import com.androidadvance.ultimateandroidtemplaterx.view.fragment.DetailFragment;
 import com.androidadvance.ultimateandroidtemplaterx.view.settings.SettingsActivity;
 import com.socks.library.KLog;
-import de.greenrobot.event.EventBus;
 import hotchemi.android.rate.AppRate;
 import javax.inject.Inject;
-
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class MainActivity extends com.androidadvance.ultimateandroidtemplaterx.view.BaseActivity implements MainMvpView {
 
@@ -117,6 +117,7 @@ public class MainActivity extends com.androidadvance.ultimateandroidtemplaterx.v
     super.onStop();
   }
 
+  @Subscribe
   public void onEvent(MessagesEvent event) {
 
     if (event.ismSuccess()) {

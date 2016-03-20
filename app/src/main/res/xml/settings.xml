@@ -17,10 +17,6 @@
             android:summary="We appreciate your feedback. What did you like or dislike ?"
             android:title="Send Feedback"/>
 
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/about">
         <Preference
             android:key="version"
             android:summary="@string/version"

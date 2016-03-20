@@ -14,8 +14,8 @@ import com.androidadvance.ultimateandroidtemplaterx.R;
 import com.androidadvance.ultimateandroidtemplaterx.events.DetailSelectedEvent;
 import com.androidadvance.ultimateandroidtemplaterx.view.main.MainActivity;
 import com.squareup.picasso.Picasso;
-import de.greenrobot.event.EventBus;
 import java.util.List;
+import org.greenrobot.eventbus.EventBus;
 
 public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHolder> {
   private final int NOTIFY_DELAY = 500;
@@ -65,22 +65,4 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHold
     return mListForecast.size();
   }
 
-  public void addForecast(final com.androidadvance.ultimateandroidtemplaterx.model.forecast.List forecast, final int position) {
-    // notify of the insertion with a delay, so there is a brief pause after returning
-    // from the new book screen; this makes the animation more noticeable
-    Handler handler = new Handler();
-    handler.postDelayed(() -> {
-      mListForecast.add(position, forecast);
-      notifyItemInserted(position);
-    }, NOTIFY_DELAY);
-  }
-
-  public void removeForecast(final int position) {
-    mListForecast.remove(position);
-
-    // notify of the removal with a delay so there is a brief pause after returning
-    // from the book details screen; this makes the animation more noticeable
-    Handler handler = new Handler();
-    handler.postDelayed(() -> notifyItemRemoved(position), NOTIFY_DELAY);
-  }
 }
