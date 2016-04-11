@@ -75,6 +75,6 @@ public class BaseApplication extends Application {
 
   @Subscribe
   public void onEvent(AuthenticationErrorEvent event) {
-    KLog.e("Unauthorized! Redirect to Signin Activity...");
+    KLog.e("Unauthorized! Redirect to Signin Activity..!.");
   }
 }

@@ -16,6 +16,9 @@
     <item name="android:textColor">@color/app_text_label</item>
     <item name="alertDialogTheme">@style/AppCompatAlertDialogStyle</item>
 
+    <item name="windowActionBar">false</item>
+    <item name="android:windowNoTitle">true</item>
+
   </style>
 
 

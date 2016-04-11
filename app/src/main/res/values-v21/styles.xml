@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="AppBaseTheme" parent="android:Theme.Material.Light">
-    <!-- API 21 theme customizations can go here. -->
-
-    <item name="android:windowContentTransitions">true</item>
-    <item name="android:windowAllowEnterTransitionOverlap">false</item>
-    <item name="android:windowAllowReturnTransitionOverlap">false</item>
-    <item name="android:navigationBarColor">@color/appcolor_light_grey</item>
-    <item name="android:statusBarColor">@color/appcolor_light_grey</item>
-
-  </style>
-
-
-  <style name="MaterialAnimations.TextAppearance.Title" parent="android:TextAppearance.Material.Title">
-    <item name="android:textColor">?android:textColorPrimary</item>
-  </style>
-
-  <style name="MaterialAnimations.TextAppearance.Title.Inverse" parent="android:TextAppearance.Material.Title">
-    <item name="android:textColor">?android:textColorPrimaryInverse</item>
-  </style>
 
   <style name="AppTheme" parent="Theme.AppCompat.Light">
     <!-- Customize your theme here. -->
@@ -40,5 +21,17 @@
     <item name="alertDialogTheme">@style/AppCompatAlertDialogStyle</item>
     <item name="android:navigationBarColor">@color/appcolor_light_grey</item>
 
+
+
   </style>
+
+  <style name="MaterialAnimations.TextAppearance.Title" parent="android:TextAppearance.Material.Title">
+    <item name="android:textColor">?android:textColorPrimary</item>
+  </style>
+
+  <style name="MaterialAnimations.TextAppearance.Title.Inverse" parent="android:TextAppearance.Material.Title">
+    <item name="android:textColor">?android:textColorPrimaryInverse</item>
+  </style>
+
+
 </resources>

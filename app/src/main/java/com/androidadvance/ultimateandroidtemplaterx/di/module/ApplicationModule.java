@@ -6,6 +6,7 @@ import com.androidadvance.ultimateandroidtemplaterx.data.local.PreferencesHelper
 import com.androidadvance.ultimateandroidtemplaterx.data.local.WeatherDatabase;
 import com.androidadvance.ultimateandroidtemplaterx.data.remote.APIService;
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
@@ -36,7 +37,7 @@ public class ApplicationModule {
     return new PreferencesHelper(baseApplicaton);
   }
 
-  @Provides @Singleton public SQLiteDatabase database() {
+  @Provides @Singleton public DatabaseWrapper database() {
     return FlowManager.getDatabase(WeatherDatabase.NAME).getWritableDatabase();
   }
 }

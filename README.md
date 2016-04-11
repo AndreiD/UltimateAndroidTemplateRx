@@ -4,8 +4,8 @@ Ultimate Android Template Rx
 A Simple MVP Template
 ------------
 
-A simple template application following the MVP Arhitecture.
-The app gets the weather, syncs it locally.
+A simple template application following the MVP Arhitecture updated frequently with the latest version of most common libraries.
+Sample: The app gets the weather, syncs it locally.
 
 ![Image](https://raw.githubusercontent.com/AndreiD/UltimateAndroidTemplateRx/master/screenshot.png?raw=true)
 
@@ -41,7 +41,7 @@ apply from: '../config/quality.gradle'
 
 android {
   compileSdkVersion 23
-  buildToolsVersion "23.0.2"
+  buildToolsVersion "23.0.3"
 
   dexOptions {
     incremental true
@@ -109,12 +109,11 @@ dependencies {
 
   compile fileTree(dir: 'libs', include: ['*.jar'])
 
-
   //----- Support Libs
-  compile 'com.android.support:appcompat-v7:23.2.0'
-  compile "com.android.support:design:23.1.1"
-  compile "com.android.support:recyclerview-v7:23.2.0"
-  compile "com.android.support:cardview-v7:23.2.0"
+  compile 'com.android.support:appcompat-v7:23.3.0'
+  compile "com.android.support:design:23.3.0"
+  compile "com.android.support:recyclerview-v7:23.3.0"
+  compile "com.android.support:cardview-v7:23.3.0"
 
   //----- Dagger
   compile "com.google.dagger:dagger:2.0.2"
@@ -127,15 +126,15 @@ dependencies {
   //compile "com.jakewharton.rxbinding:rxbinding:0.3.0"
 
   //----- Retrofit
-  compile 'com.squareup.retrofit2:retrofit:2.0.0'
-  compile "com.squareup.retrofit2:converter-gson:2.0.0"
-  compile "com.squareup.retrofit2:adapter-rxjava:2.0.0"
+  compile 'com.squareup.retrofit2:retrofit:2.0.1'
+  compile "com.squareup.retrofit2:converter-gson:2.0.1"
+  compile "com.squareup.retrofit2:adapter-rxjava:2.0.1"
   compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
 
   //---- DbFlow
-  apt "com.github.Raizlabs.DBFlow:dbflow-processor:3.0.0-beta1"
-  compile "com.github.Raizlabs.DBFlow:dbflow-core:3.0.0-beta1"
-  compile "com.github.Raizlabs.DBFlow:dbflow:3.0.0-beta1"
+  apt "com.github.Raizlabs.DBFlow:dbflow-processor:3.0.0-beta5"
+  compile "com.github.Raizlabs.DBFlow:dbflow-core:3.0.0-beta5"
+  compile "com.github.Raizlabs.DBFlow:dbflow:3.0.0-beta5"
 
   //----- Butterknife
   compile "com.jakewharton:butterknife:7.0.1"
@@ -153,13 +152,13 @@ dependencies {
   compile "com.mikhaellopez:circularimageview:2.1.1"
 
   //----- Easy Permission Management
-  compile "com.karumi:dexter:2.2.0"
+  compile "com.karumi:dexter:2.2.2"
 
   //----- Annotations
   compile "org.glassfish:javax.annotation:10.0-b28"
 
   //----- Rate this app
-  compile 'com.github.hotchemi:android-rate:0.5.6'
+  compile 'com.github.hotchemi:android-rate:1.0.1'
 
   //----- Testing
   testCompile 'junit:junit:4.12'
@@ -169,12 +168,6 @@ dependencies {
   androidTestCompile "com.android.support.test:rules:0.4"
   androidTestCompile "com.android.support.test.espresso:espresso-core:2.2.1"
   androidTestCompile "org.hamcrest:hamcrest-library:1.3"
-}
-
-task clean(type: Exec) {
-  ext.lockhunter = '\"C:\\Program Files\\LockHunter\\LockHunter.exe"'
-  def buildDir = file(new File("build"))
-  commandLine 'cmd', "$lockhunter", '/delete', '/silent', buildDir
 }
 
 // Log out test results to console

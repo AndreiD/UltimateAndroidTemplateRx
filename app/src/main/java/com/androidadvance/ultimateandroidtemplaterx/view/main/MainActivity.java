@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -117,8 +118,7 @@ public class MainActivity extends com.androidadvance.ultimateandroidtemplaterx.v
     super.onStop();
   }
 
-  @Subscribe
-  public void onEvent(MessagesEvent event) {
+  @Subscribe public void onEvent(MessagesEvent event) {
 
     if (event.ismSuccess()) {
       DialogFactory.createSimpleOkDialog(MainActivity.this, getString(R.string.app_name), event.getMessage()).show();
