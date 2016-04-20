@@ -88,7 +88,6 @@ dependencies {
   //----- Rx
   compile "io.reactivex:rxandroid:1.1.0"
   compile "io.reactivex:rxjava:1.1.0"
-  //compile "com.jakewharton.rxbinding:rxbinding:0.3.0"
 
   //----- Retrofit
   compile 'com.squareup.retrofit2:retrofit:2.0.1'
@@ -128,7 +127,7 @@ dependencies {
   //----- Testing
   testCompile 'junit:junit:4.12'
   androidTestApt "com.google.dagger:dagger-compiler:2.0.2"
-  androidTestCompile 'com.android.support:support-annotations:23.2.0'
+  androidTestCompile 'com.android.support:support-annotations:23.3.0'
   androidTestCompile "com.android.support.test:runner:0.4"
   androidTestCompile "com.android.support.test:rules:0.4"
   androidTestCompile "com.android.support.test.espresso:espresso-core:2.2.1"
