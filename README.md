@@ -20,6 +20,7 @@ Before you begin with this template:
 
 How to use it:
 ------------
+Step 1:
 
 * Clone this repo
 * Run it and see that it's working on your emulator.
@@ -28,6 +29,10 @@ How to use it:
 * IMPORTANT: Remove the libs that you don't need. Add those that you do. Profit!
 * Make sure you write nice code by checking with /.gradlew check 
 * Star this repository :)
+
+Step 2. ???
+Step 3. Profit
+
 
 What it contains
 ------------
