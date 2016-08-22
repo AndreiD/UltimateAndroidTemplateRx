@@ -184,6 +184,7 @@ tasks.matching {it instanceof Test}.all {
 Need more nice stuff ?
 ------------
 
+- https://github.com/AndreiD/SimpleChat - Simple Realtime Room Chat in Android.
 - Google, Facebok, Twitter logins -> https://github.com/AndreiD/FacebookTwitterGoogleLogins
 - A survey lib for your app -> https://github.com/AndreiD/surveylib
 
