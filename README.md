@@ -18,7 +18,7 @@ Before you begin with this template:
 - You have basic knowledge of: Retrofit, Butterknife, Picasso libraries
 - You played a little with: DbFlow, Eventbuss, com.karumi:dexter
 
-How to use it:
+How to use it
 ------------
 Step 1:
 
