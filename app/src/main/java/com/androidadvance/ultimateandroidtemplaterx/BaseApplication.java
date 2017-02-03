@@ -8,17 +8,13 @@ import com.androidadvance.ultimateandroidtemplaterx.di.component.ApplicationComp
 import com.androidadvance.ultimateandroidtemplaterx.di.component.DaggerApplicationComponent;
 import com.androidadvance.ultimateandroidtemplaterx.di.module.ApplicationModule;
 import com.androidadvance.ultimateandroidtemplaterx.events.AuthenticationErrorEvent;
-import com.raizlabs.android.dbflow.config.FlowManager;
 import com.socks.library.KLog;
 import javax.inject.Inject;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import rx.Scheduler;
-import rx.schedulers.Schedulers;
 
 public class BaseApplication extends Application {
 
-  private Scheduler defaultSubscribeScheduler;
   private ApplicationComponent applicationComponent;
   @Inject EventBus eventBus;
 
@@ -32,11 +28,6 @@ public class BaseApplication extends Application {
     } else {
       KLog.init(false);
     }
-
-    //------ database init ------
-    FlowManager.init(this);
-
-    //Delete.table(DbModel.class);
 
     applicationComponent = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
 
@@ -56,13 +47,6 @@ public class BaseApplication extends Application {
     applicationComponent = applicationComponent;
   }
 
-  public Scheduler getSubscribeScheduler() {
-    if (defaultSubscribeScheduler == null) {
-      defaultSubscribeScheduler = Schedulers.io();
-    }
-    return defaultSubscribeScheduler;
-  }
-
   @Override public void onLowMemory() {
     super.onLowMemory();
     KLog.e("########## onLowMemory ##########");
@@ -73,8 +57,7 @@ public class BaseApplication extends Application {
     super.onTerminate();
   }
 
-  @Subscribe
-  public void onEvent(AuthenticationErrorEvent event) {
-    KLog.e("Unauthorized! Redirect to Signin Activity..!.");
+  @Subscribe public void onEvent(AuthenticationErrorEvent event) {
+    KLog.e("Unauthorized! Redirect to Signing Activity..!.");
   }
 }
