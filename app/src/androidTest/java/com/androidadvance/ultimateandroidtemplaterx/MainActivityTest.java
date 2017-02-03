@@ -2,7 +2,6 @@ package com.androidadvance.ultimateandroidtemplaterx;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.LargeTest;
 import com.androidadvance.ultimateandroidtemplaterx.data.remote.APIService;
 import com.androidadvance.ultimateandroidtemplaterx.model.weather.WeatherPojo;
 import com.androidadvance.ultimateandroidtemplaterx.view.main.MainActivity;
@@ -19,9 +18,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.containsString;
 
-@LargeTest
-@RunWith(AndroidJUnit4.class)
-public class MainActivityTest {
+@RunWith(AndroidJUnit4.class) public class MainActivityTest {
 
   private static final String CITY_NAME = "Sofia,bg";
 

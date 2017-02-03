@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.androidadvance.ultimateandroidtemplaterx.R;
@@ -30,15 +30,15 @@ import org.greenrobot.eventbus.Subscribe;
 
 public class MainActivity extends com.androidadvance.ultimateandroidtemplaterx.view.BaseActivity implements MainMvpView {
 
-  @Bind(R.id.textview_main_city) TextView textview_main_city;
-  @Bind(R.id.textView_main_conditions) TextView textView_main_conditions;
-  @Bind(R.id.textView_main_current_temperature) TextView textView_main_current_temperature;
-  @Bind(R.id.textView_main_min_max) TextView textView_main_min_max;
-  @Bind(R.id.textView_main_pressure) TextView textView_main_pressure;
-  @Bind(R.id.textView_main_humidity) TextView textView_main_humidity;
-  @Bind(R.id.textView_main_wind) TextView textView_main_wind;
-  @Bind(R.id.imageView_main_icon) ImageView imageView_main_icon;
-  @Bind(R.id.button_main_next_days) Button button_main_next_days;
+  @BindView(R.id.textview_main_city) TextView textview_main_city;
+  @BindView(R.id.textView_main_conditions) TextView textView_main_conditions;
+  @BindView(R.id.textView_main_current_temperature) TextView textView_main_current_temperature;
+  @BindView(R.id.textView_main_min_max) TextView textView_main_min_max;
+  @BindView(R.id.textView_main_pressure) TextView textView_main_pressure;
+  @BindView(R.id.textView_main_humidity) TextView textView_main_humidity;
+  @BindView(R.id.textView_main_wind) TextView textView_main_wind;
+  @BindView(R.id.imageView_main_icon) ImageView imageView_main_icon;
+  @BindView(R.id.button_main_next_days) Button button_main_next_days;
   private static ProgressBar mProgressBar = null;
   private MainPresenter presenter;
 

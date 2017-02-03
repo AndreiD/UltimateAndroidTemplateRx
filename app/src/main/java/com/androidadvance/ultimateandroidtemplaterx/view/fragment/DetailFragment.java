@@ -10,7 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import butterknife.Bind;
+import butterknife.BindView;
 import com.androidadvance.ultimateandroidtemplaterx.R;
 import com.androidadvance.ultimateandroidtemplaterx.events.DetailSelectedEvent;
 import com.androidadvance.ultimateandroidtemplaterx.model.forecast.Forecast;
@@ -22,7 +22,7 @@ import org.greenrobot.eventbus.Subscribe;
 public class DetailFragment extends BaseFragment implements DetailMvpView {
 
   private static final String ARG_EXAMPLE = "ARG_EXAMPLE";
-  @Bind(R.id.recyclerview_details) RecyclerView recyclerview_details;
+  @BindView(R.id.recyclerview_details) RecyclerView recyclerview_details;
   private DetailPresenter presenter;
 
 

@@ -39,6 +39,8 @@ public class BaseApplication extends Application {
     return (BaseApplication) context.getApplicationContext();
   }
 
+
+
   public ApplicationComponent getApplicationComponent() {
     return applicationComponent;
   }

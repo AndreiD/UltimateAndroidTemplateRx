@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.androidadvance.ultimateandroidtemplaterx.R;
 import com.androidadvance.ultimateandroidtemplaterx.events.DetailSelectedEvent;
@@ -22,9 +22,9 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHold
   private List<com.androidadvance.ultimateandroidtemplaterx.model.forecast.List> mListForecast;
 
   public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    @Bind(R.id.row_textView_forecast) TextView row_textView_forecast;
-    @Bind(R.id.row_imageView_forecast) ImageView row_imageView_forecast;
-    @Bind(R.id.row_details_cardview) CardView row_details_cardview;
+    @BindView(R.id.row_textView_forecast) TextView row_textView_forecast;
+    @BindView(R.id.row_imageView_forecast) ImageView row_imageView_forecast;
+    @BindView(R.id.row_details_cardview) CardView row_details_cardview;
 
     public ViewHolder(View view) {
       super(view);
