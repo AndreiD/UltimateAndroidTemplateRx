@@ -4,16 +4,16 @@
   <!-- you can edit them easy in styles -> theme manager -->
 
   <!-- Dark Theme -->
-  <color name="app_window_bgdark_color">#FFFFFF</color>
-  <color name="app_window_bglight_color">#FFFFFF</color>
-  <color name="app_text_unimportant">#8e8e8e</color>
-  <color name="app_text_label">#656565</color>
-  <color name="app_base">#0099e5</color>
+  <color name="app_window_bgdark_color">#161616</color>
+  <color name="app_window_bglight_color">#262626</color>
+  <color name="app_text_unimportant">#6e6e6e</color>
+  <color name="app_text_label">#bfbfbf</color>
+  <color name="app_base">#18ffff</color>
 
-  <color name="appcolor_blue">#039be5</color>
+  <color name="appcolor_blue">#3949ab</color>
   <color name="appcolor_red">#c51162</color>
   <color name="appcolor_green">#4db6ac</color>
-  <color name="appcolor_light_grey">#000000</color>
+  <color name="appcolor_light_grey">#545454</color>
 
 
   <color name="colorPrimary">@color/app_base</color>

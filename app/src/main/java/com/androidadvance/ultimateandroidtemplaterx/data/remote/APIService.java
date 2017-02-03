@@ -5,11 +5,13 @@ import com.androidadvance.ultimateandroidtemplaterx.BuildConfig;
 import com.androidadvance.ultimateandroidtemplaterx.model.forecast.Forecast;
 import com.androidadvance.ultimateandroidtemplaterx.model.weather.WeatherPojo;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -22,11 +24,11 @@ public interface APIService {
   String ENDPOINT = "http://api.openweathermap.org/";
   String API_KEY = "aa9af8d39d6519b1d47dec305bd253a4";
 
-  @GET("data/2.5/weather?APPID=" + API_KEY) Observable<WeatherPojo> getWeatherForLatLon(@Query("lat") double lat, @Query("lng") double lng, @Query("units") String units);
+  @GET("data/2.5/weather?APPID=" + API_KEY) Call<WeatherPojo> getWeatherForLatLon(@Query("lat") double lat, @Query("lng") double lng, @Query("units") String units);
 
-  @GET("data/2.5/weather?APPID=" + API_KEY) Observable<WeatherPojo> getWeatherForCity(@Query("q") String city, @Query("units") String units);
+  @GET("data/2.5/weather?APPID=" + API_KEY) Call<WeatherPojo> getWeatherForCity(@Query("q") String city, @Query("units") String units);
 
-  @GET("data/2.5/forecast?APPID=" + API_KEY) Observable<Forecast> getForecastForCity(@Query("q") String city, @Query("units") String units, @Query("cnt") int cnt);
+  @GET("data/2.5/forecast?APPID=" + API_KEY) Call<Forecast> getForecastForCity(@Query("q") String city, @Query("units") String units, @Query("cnt") int cnt);
 
   class Factory {
 
