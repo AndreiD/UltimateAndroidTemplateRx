@@ -1,11 +1,11 @@
 package com.androidadvance.ultimateandroidtemplaterx.di;
 
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import javax.inject.Scope;
 
-@Scope
+import javax.inject.Qualifier;
+
+@Qualifier
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ActivityScope {
+public @interface ApplicationContext {
 }

@@ -1,43 +1,47 @@
 package com.androidadvance.ultimateandroidtemplaterx.di.module;
 
 import android.content.Context;
-import com.androidadvance.ultimateandroidtemplaterx.BaseApplication;
+import android.app.Application;
 import com.androidadvance.ultimateandroidtemplaterx.data.local.PreferencesHelper;
 import com.androidadvance.ultimateandroidtemplaterx.data.remote.APIService;
+import com.androidadvance.ultimateandroidtemplaterx.di.ApplicationContext;
 import dagger.Module;
 import dagger.Provides;
+import javax.inject.Named;
 import javax.inject.Singleton;
 import org.greenrobot.eventbus.EventBus;
 
 @Module public class ApplicationModule {
 
-  private final BaseApplication baseApplicaton;
+  protected final Application mApplication;
 
-  public ApplicationModule(BaseApplication baseApplication) {
-    this.baseApplicaton = baseApplication;
+  public ApplicationModule(Application application) {
+    mApplication = application;
   }
 
-  @Provides @Singleton public BaseApplication provideApplication() {
+  @Provides public Application provideApplication() {
 
-    return baseApplicaton;
+    return mApplication;
   }
 
-  @Provides @Singleton public APIService provideApiService() {
+  @Provides @ApplicationContext Context provideContext() {
+    return mApplication;
+  }
 
-    return APIService.Factory.create(baseApplicaton);
+  @Provides @Named("cached") @Singleton public APIService provideApiService() {
+    return APIService.Factory.create(mApplication, true);
+  }
+
+  @Provides @Named("non_cached") @Singleton public APIService provideApiServiceNonCached() {
+    return APIService.Factory.create(mApplication, false);
   }
 
   @Provides @Singleton public EventBus eventBus() {
-
     return new EventBus();
   }
 
   @Provides @Singleton public PreferencesHelper prefsHelper() {
 
-    return new PreferencesHelper(baseApplicaton);
-  }
-
-  @Provides @Singleton public Context provideContext() {
-    return baseApplicaton;
+    return new PreferencesHelper(mApplication);
   }
 }

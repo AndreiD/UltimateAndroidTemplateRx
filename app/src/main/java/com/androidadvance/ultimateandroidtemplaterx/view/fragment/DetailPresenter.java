@@ -3,23 +3,24 @@ package com.androidadvance.ultimateandroidtemplaterx.view.fragment;
 import android.content.Context;
 import com.androidadvance.ultimateandroidtemplaterx.BaseApplication;
 import com.androidadvance.ultimateandroidtemplaterx.data.remote.APIService;
-import com.androidadvance.ultimateandroidtemplaterx.model.forecast.Forecast;
+import com.androidadvance.ultimateandroidtemplaterx.model.IPInfo;
 import com.androidadvance.ultimateandroidtemplaterx.presenter.Presenter;
-import com.socks.library.KLog;
-import javax.inject.Inject;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DetailPresenter implements Presenter<DetailMvpView> {
 
   private DetailMvpView detailMvpView;
-  private Forecast forecast;
 
   @Inject public DetailPresenter(Context ctx) {
-    ((BaseApplication) ctx.getApplicationContext()).getApplicationComponent().inject(this);
+    ((BaseApplication) ctx.getApplicationContext()).getComponent().inject(this);
   }
 
-  @Inject APIService apiService;
-
+  @Inject @Named("cached") APIService apiService;
 
   @Override public void attachView(DetailMvpView view) {
     this.detailMvpView = view;
@@ -29,14 +30,17 @@ public class DetailPresenter implements Presenter<DetailMvpView> {
     this.detailMvpView = null;
   }
 
-  public void loadForcast(String from_where) {
-    String weather_from_where = from_where.trim();
-    if (weather_from_where.isEmpty()) return;
+  public void show_headers() {
 
+    apiService.getHeaders().enqueue(new Callback<IPInfo>() {
+      @Override public void onResponse(Call<IPInfo> call, Response<IPInfo> response) {
+        detailMvpView.showHeaders(response.body().toString());
+      }
 
-    BaseApplication baseApplication = BaseApplication.get(detailMvpView.getContext());
-
-
+      @Override public void onFailure(Call<IPInfo> call, Throwable t) {
+        detailMvpView.showError(t.getLocalizedMessage());
+      }
+    });
 
   }
 }

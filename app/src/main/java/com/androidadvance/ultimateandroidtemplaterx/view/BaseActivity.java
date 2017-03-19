@@ -9,16 +9,19 @@ import com.androidadvance.ultimateandroidtemplaterx.di.component.DaggerActivityC
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-  private ActivityComponent mComponent;
+  private ActivityComponent mActivityComponent;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    mComponent = DaggerActivityComponent.builder().applicationComponent(getApp().getApplicationComponent()).build();
+
+    mActivityComponent = DaggerActivityComponent.builder()
+        .applicationComponent(getApp().getComponent())
+        .build();
   }
 
-  protected ActivityComponent getComponent() {
-    return mComponent;
+  public ActivityComponent getActivityComponent() {
+    return mActivityComponent;
   }
 
   protected BaseApplication getApp() {

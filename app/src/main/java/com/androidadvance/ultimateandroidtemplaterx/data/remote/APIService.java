@@ -2,37 +2,33 @@ package com.androidadvance.ultimateandroidtemplaterx.data.remote;
 
 import android.content.Context;
 import com.androidadvance.ultimateandroidtemplaterx.BuildConfig;
-import com.androidadvance.ultimateandroidtemplaterx.model.forecast.Forecast;
-import com.androidadvance.ultimateandroidtemplaterx.model.weather.WeatherPojo;
-
-import java.util.concurrent.Callable;
+import com.androidadvance.ultimateandroidtemplaterx.model.IPInfo;
+import com.androidadvance.ultimateandroidtemplaterx.util.NetworkUtil;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.socks.library.KLog;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.Cache;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
-import rx.Observable;
 
 public interface APIService {
 
-  String ENDPOINT = "http://api.openweathermap.org/";
-  String API_KEY = "aa9af8d39d6519b1d47dec305bd253a4";
+  String ENDPOINT = "http://ip-api.com/";
 
-  @GET("data/2.5/weather?APPID=" + API_KEY) Call<WeatherPojo> getWeatherForLatLon(@Query("lat") double lat, @Query("lng") double lng, @Query("units") String units);
-
-  @GET("data/2.5/weather?APPID=" + API_KEY) Call<WeatherPojo> getWeatherForCity(@Query("q") String city, @Query("units") String units);
-
-  @GET("data/2.5/forecast?APPID=" + API_KEY) Call<Forecast> getForecastForCity(@Query("q") String city, @Query("units") String units, @Query("cnt") int cnt);
+  @GET("json") Call<IPInfo> getHeaders();
 
   class Factory {
 
-    public static APIService create(Context context) {
+    public static APIService create(Context context, boolean cached) {
 
       OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
       builder.readTimeout(15, TimeUnit.SECONDS);
@@ -52,21 +48,33 @@ public interface APIService {
       }
 
       //Extra Headers
-
       //builder.addNetworkInterceptor().add(chain -> {
       //  Request request = chain.request().newBuilder().addHeader("Authorization", authToken).build();
       //  return chain.proceed(request);
       //});
 
-      int cacheSize = 10 * 1024 * 1024; // 10 MiB
-      Cache cache = new Cache(context.getCacheDir(), cacheSize);
-      builder.cache(cache);
+      if (cached) {
+        Cache cache = new Cache(context.getCacheDir(), 10 * 1024 * 1024);
+        builder.cache(cache);
+        builder.addInterceptor(chain -> {
+          Request request = chain.request();
+          if (NetworkUtil.isNetworkConnected(context)) {
+            request = request.newBuilder().header("Cache-Control", "public, max-age=" + 60).build();
+          } else {
+            request = request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build();
+          }
+          return chain.proceed(request);
+        });
+      }
 
-      builder.addInterceptor(new UnauthorisedInterceptor(context));
+      //builder.addInterceptor(new UnauthorisedInterceptor(context));
+
       OkHttpClient client = builder.build();
 
+      Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
+
       Retrofit retrofit =
-          new Retrofit.Builder().baseUrl(APIService.ENDPOINT).client(client).addConverterFactory(GsonConverterFactory.create()).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
+          new Retrofit.Builder().baseUrl(APIService.ENDPOINT).client(client).addConverterFactory(GsonConverterFactory.create(gson)).build();
 
       return retrofit.create(APIService.class);
     }

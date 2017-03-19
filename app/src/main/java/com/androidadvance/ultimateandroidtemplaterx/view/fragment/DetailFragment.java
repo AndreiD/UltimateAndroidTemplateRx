@@ -2,18 +2,14 @@ package com.androidadvance.ultimateandroidtemplaterx.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import butterknife.BindView;
 import com.androidadvance.ultimateandroidtemplaterx.R;
-import com.androidadvance.ultimateandroidtemplaterx.events.DetailSelectedEvent;
-import com.androidadvance.ultimateandroidtemplaterx.model.forecast.Forecast;
+import com.androidadvance.ultimateandroidtemplaterx.events.MessagesEvent;
+import com.androidadvance.ultimateandroidtemplaterx.util.DialogFactory;
 import com.androidadvance.ultimateandroidtemplaterx.view.BaseFragment;
 import com.socks.library.KLog;
 import org.greenrobot.eventbus.EventBus;
@@ -22,9 +18,7 @@ import org.greenrobot.eventbus.Subscribe;
 public class DetailFragment extends BaseFragment implements DetailMvpView {
 
   private static final String ARG_EXAMPLE = "ARG_EXAMPLE";
-  @BindView(R.id.recyclerview_details) RecyclerView recyclerview_details;
-  private DetailPresenter presenter;
-
+  @BindView(R.id.textView_fragment_headers) TextView textView_fragment_headers;
 
   public static DetailFragment newInstance(int example_argument) {
     DetailFragment detailFragment = new DetailFragment();
@@ -37,16 +31,11 @@ public class DetailFragment extends BaseFragment implements DetailMvpView {
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    presenter = new DetailPresenter(getActivity());
+    DetailPresenter presenter = new DetailPresenter(getActivity());
     presenter.attachView(this);
-    presenter.loadForcast("Sofia,bg");
 
-    recyclerview_details.setHasFixedSize(true);
-    LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-    recyclerview_details.setLayoutManager(llm);
-
-    //for recreation of the toolbar
-    setHasOptionsMenu(true);
+    //load the headers on creation
+    presenter.show_headers();
   }
 
   @Override public void onCreate(Bundle savedInstanceState) {
@@ -55,13 +44,7 @@ public class DetailFragment extends BaseFragment implements DetailMvpView {
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.fragment_detail, container, false);
-  }
-
-  @Override public void showForecast(Forecast forecast) {
-
-    DetailsAdapter forecast_adapter = new DetailsAdapter(forecast.getList());
-    recyclerview_details.setAdapter(forecast_adapter);
+    return inflater.inflate(R.layout.fragment_headers, container, false);
   }
 
   @Override public void onStart() {
@@ -74,24 +57,15 @@ public class DetailFragment extends BaseFragment implements DetailMvpView {
     super.onStop();
   }
 
-  @Subscribe
-  public void onEvent(DetailSelectedEvent event) {
-    KLog.d(">>> %s", event.details_object);
+  @Subscribe public void onEvent(MessagesEvent event) {
+    KLog.d(">>> %s", event.toString());
   }
 
-  @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    super.onCreateOptionsMenu(menu, inflater);
-    menu.clear();
-    inflater.inflate(R.menu.menu_fragment_details, menu);
+  @Override public void showHeaders(String headers) {
+    textView_fragment_headers.setText(headers);
   }
 
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.action_detail_refresh:
-        presenter.loadForcast("Sofia,bg");
-        return true;
-      default:
-        return super.onOptionsItemSelected(item);
-    }
+  @Override public void showError(String error) {
+    DialogFactory.createGenericErrorDialog(getActivity(),error).show();
   }
 }

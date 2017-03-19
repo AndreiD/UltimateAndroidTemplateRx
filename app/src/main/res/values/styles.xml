@@ -13,14 +13,11 @@
     <item name="colorControlNormal">@color/app_text_unimportant</item>
     <item name="colorControlHighlight">@color/appcolor_light_grey</item>
 
-
     <item name="android:textColor">@color/app_text_label</item>
-
-
     <item name="alertDialogTheme">@style/AppCompatAlertDialogStyle</item>
 
-
   </style>
+
 
   <style name="Title" parent="android:TextAppearance">
     <item name="android:textSize">20sp</item>
@@ -62,33 +59,5 @@
     <item name="android:windowContentOverlay">@null</item>
   </style>
 
-
-  <style name="AppTheme.Icon">
-    <item name="android:layout_margin">10dp</item>
-  </style>
-
-  <style name="AppTheme.Icon.Small">
-    <item name="android:layout_width">48dp</item>
-    <item name="android:layout_height">48dp</item>
-
-  </style>
-
-  <style name="AppTheme.Icon.Medium">
-    <item name="android:layout_width">84dp</item>
-    <item name="android:layout_margin">2dp</item>
-    <item name="android:layout_height">84dp</item>
-  </style>
-
-
-  <style name="AppTheme.Icon.Big">
-    <item name="android:layout_width">150dp</item>
-    <item name="android:layout_height">150dp</item>
-  </style>
-
-  <style name="AppTheme.Icon.Medium.Scaled" parent="AppTheme.Icon.Medium">
-    <item name="android:alpha">0</item>
-    <item name="android:scaleX">0.5</item>
-    <item name="android:scaleY">0.5</item>
-  </style>
 
 </resources>

@@ -1,76 +1,49 @@
 package com.androidadvance.ultimateandroidtemplaterx.view.main;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.androidadvance.ultimateandroidtemplaterx.R;
 import com.androidadvance.ultimateandroidtemplaterx.events.MessagesEvent;
-import com.androidadvance.ultimateandroidtemplaterx.model.weather.WeatherPojo;
 import com.androidadvance.ultimateandroidtemplaterx.util.DialogFactory;
-import com.androidadvance.ultimateandroidtemplaterx.util.UnitLocale;
+import com.androidadvance.ultimateandroidtemplaterx.view.BaseActivity;
 import com.androidadvance.ultimateandroidtemplaterx.view.fragment.DetailFragment;
 import com.androidadvance.ultimateandroidtemplaterx.view.settings.SettingsActivity;
 import com.socks.library.KLog;
-import hotchemi.android.rate.AppRate;
 import javax.inject.Inject;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-public class MainActivity extends com.androidadvance.ultimateandroidtemplaterx.view.BaseActivity implements MainMvpView {
+public class MainActivity extends BaseActivity implements MainMvpView {
 
-  @BindView(R.id.textview_main_city) TextView textview_main_city;
-  @BindView(R.id.textView_main_conditions) TextView textView_main_conditions;
-  @BindView(R.id.textView_main_current_temperature) TextView textView_main_current_temperature;
-  @BindView(R.id.textView_main_min_max) TextView textView_main_min_max;
-  @BindView(R.id.textView_main_pressure) TextView textView_main_pressure;
-  @BindView(R.id.textView_main_humidity) TextView textView_main_humidity;
-  @BindView(R.id.textView_main_wind) TextView textView_main_wind;
-  @BindView(R.id.imageView_main_icon) ImageView imageView_main_icon;
-  @BindView(R.id.button_main_next_days) Button button_main_next_days;
-  private static ProgressBar mProgressBar = null;
+  @BindView(R.id.button_show_headers) Button button_show_headers;
   private MainPresenter presenter;
 
   @Inject EventBus eventBus;
+  private MainActivity mContext;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    getComponent().inject(this);
+
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
+    getActivityComponent().inject(this);
+    mContext = MainActivity.this;
 
-    presenter = new MainPresenter(this);
+    presenter = new MainPresenter();
     presenter.attachView(this);
 
     getSupportActionBar().setElevation(0);
-
-    getSupportFragmentManager().addOnBackStackChangedListener(() -> {
-      if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      } else {
-        getSupportActionBar().setTitle(getString(R.string.app_name));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-      }
-    });
-
-    presenter.loadWeather("Sofia,bg");
-    rate_this_app_logic();
   }
 
-  @OnClick(R.id.button_main_next_days) void onClick_button_main_next_days() {
-    getSupportActionBar().setTitle("Next days");
-    getSupportFragmentManager().beginTransaction().replace(R.id.container_rellayout, DetailFragment.newInstance(1)).addToBackStack(null).commit();
+  @OnClick(R.id.button_show_headers) void onClick_show_headers() {
+
+    getSupportFragmentManager().beginTransaction().replace(android.R.id.content, DetailFragment.newInstance(1)).addToBackStack(null).commit();
   }
 
   @Override protected void onDestroy() {
@@ -84,7 +57,6 @@ public class MainActivity extends com.androidadvance.ultimateandroidtemplaterx.v
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
-    // Handle item selection
     switch (item.getItemId()) {
       case R.id.action_settings:
         startActivity(new Intent(this, SettingsActivity.class));
@@ -93,15 +65,7 @@ public class MainActivity extends com.androidadvance.ultimateandroidtemplaterx.v
         finish();
         return true;
       case R.id.action_refresh:
-
-        if (getFragmentManager().getBackStackEntryCount() > 0) {
-          //--- we are in the details fragment.
-
-        } else {
-          //--- we are here
-          presenter.loadWeather("Sofia,bg");
-        }
-
+        DialogFactory.createSimpleOkDialog(mContext, "This is a title", "nothing to refresh").show();
         return true;
       default:
         return super.onOptionsItemSelected(item);
@@ -119,78 +83,15 @@ public class MainActivity extends com.androidadvance.ultimateandroidtemplaterx.v
   }
 
   @Subscribe public void onEvent(MessagesEvent event) {
-
     if (event.ismSuccess()) {
       DialogFactory.createSimpleOkDialog(MainActivity.this, getString(R.string.app_name), event.getMessage()).show();
     } else {
-      DialogFactory.showErrorSnackBar(MainActivity.this, findViewById(android.R.id.content), new Throwable(event.getMessage())).show();
+      DialogFactory.error_toast(MainActivity.this, event.getMessage()).show();
     }
   }
 
-  @Override public void showWeather(WeatherPojo weatherPojo) {
 
-    KLog.d("show Weather %s", weatherPojo.toString());
-
-    textview_main_city.setText(weatherPojo.getName());
-    textView_main_current_temperature.setText(String.format("%.1f°", weatherPojo.getMain().getTemp()));
-    textView_main_min_max.setText(String.format("%.1f°  %.1f°", weatherPojo.getMain().getTempMin(), weatherPojo.getMain().getTempMax()));
-    textView_main_conditions.setText(weatherPojo.getWeather().get(0).getDescription());
-    textView_main_humidity.setText(getString(R.string.humidity) + " " + weatherPojo.getMain().getHumidity() + "%");
-
-    String wind_suffix = getResources().getString(R.string.wind_suffix_metric);
-    if (UnitLocale.getDefault().equals(UnitLocale.Imperial)) wind_suffix = getResources().getString(R.string.wind_suffix_imperial);
-    textView_main_wind.setText(getString(R.string.wind) + " " + String.valueOf(weatherPojo.getWind().getSpeed()) + wind_suffix);
-
-    textView_main_pressure.setText(getString(R.string.pressure) + " " + weatherPojo.getMain().getPressure() + "hPa");
-    imageView_main_icon.setImageDrawable(ContextCompat.getDrawable(getContext(), getIcon(weatherPojo.getWeather().get(0).getId())));
-  }
-
-  @Override public void showProgress() {
-    if (mProgressBar == null) {
-      mProgressBar = DialogFactory.DProgressBar(MainActivity.this);
-    } else {
-      mProgressBar.setVisibility(View.VISIBLE);
-    }
-  }
-
-  @Override public void hideProgress() {
-    mProgressBar.setVisibility(View.GONE);
-  }
-
-  @Override public Context getContext() {
-    return this;
-  }
-
-  //http://openweathermap.org/weather-conditions
-  public static int getIcon(int weatherId) {
-    if (weatherId >= 200 && weatherId <= 232) {
-      return R.drawable.ic_thunderstorm;
-    } else if (weatherId >= 300 && weatherId <= 321) {
-      return R.drawable.ic_rain;
-    } else if (weatherId >= 500 && weatherId <= 504) {
-      return R.drawable.ic_rain;
-    } else if (weatherId == 511) {
-      return R.drawable.ic_snow;
-    } else if (weatherId >= 520 && weatherId <= 531) {
-      return R.drawable.ic_rain;
-    } else if (weatherId >= 600 && weatherId <= 622) {
-      return R.drawable.ic_snow;
-    } else if (weatherId >= 701 && weatherId <= 761) {
-      return R.drawable.ic_fog;
-    } else if (weatherId == 761 || weatherId == 781) {
-      return R.drawable.ic_thunderstorm;
-    } else if (weatherId == 800) {
-      return R.drawable.ic_clear;
-    } else if (weatherId == 801) {
-      return R.drawable.ic_light_clouds;
-    } else if (weatherId >= 802 && weatherId <= 804) {
-      return R.drawable.ic_cloudy;
-    }
-    return -1;
-  }
-
-  private void rate_this_app_logic() {
-    AppRate.with(this).setInstallDays(10).setLaunchTimes(10).setRemindInterval(2).setShowLaterButton(false).setDebug(false).monitor();
-    AppRate.showRateDialogIfMeetsConditions(this);
+  @Override public void doing_nothing() {
+    KLog.d("doing nothign...");
   }
 }

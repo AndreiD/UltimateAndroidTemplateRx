@@ -21,7 +21,7 @@ public class SettingsActivity extends BaseActivity {
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    getComponent().inject(this);
+    getActivityComponent().inject(this);
     getFragmentManager().beginTransaction().replace(android.R.id.content, new MyPreferenceFragment()).commit();
 
     getSupportActionBar().setElevation(0);
@@ -53,9 +53,9 @@ public class SettingsActivity extends BaseActivity {
       Preference buttonfeedback = findPreference(getString(R.string.send_feedback));
       buttonfeedback.setOnPreferenceClickListener(preference -> {
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "your_email@gmail.com", null));
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, this.getString(R.string.app_name) + " Feedback");
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, MyPreferenceFragment.this.getString(R.string.app_name) + " Feedback");
         emailIntent.putExtra(Intent.EXTRA_TEXT, "Write your feedback here...");
-        startActivity(Intent.createChooser(emailIntent, "Send email..."));
+        MyPreferenceFragment.this.startActivity(Intent.createChooser(emailIntent, "Send email..."));
 
         return true;
       });
@@ -67,7 +67,6 @@ public class SettingsActivity extends BaseActivity {
 
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
     boolean notificationsPrefs = prefs.getBoolean("prefs_notifications", false);
-
     preferencesHelper.setNotificationsPrefs(notificationsPrefs);
   }
 }

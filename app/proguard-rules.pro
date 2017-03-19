@@ -5,7 +5,7 @@
 -verbose
 
 
-
+# ButterKnife rules
 -keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**
 -keep class **$$ViewBinder { *; }
@@ -16,6 +16,16 @@
 
 -keepclasseswithmembernames class * {
     @butterknife.* <methods>;
+}
+
+
+# Gson rules
+-keepattributes Signature
+-keep class sun.misc.Unsafe { *; }
+# TODO change to match your package model
+# Keep non static or private fields of models so Gson can find their names
+-keepclassmembers class YOUR_PACKAGE_NAME.data.model.** {
+    !static !private <fields>;
 }
 
 # Platform calls Class.forName on types which do not exist on Android to determine platform.

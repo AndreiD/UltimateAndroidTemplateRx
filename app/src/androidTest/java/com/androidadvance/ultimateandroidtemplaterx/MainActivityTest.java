@@ -3,7 +3,6 @@ package com.androidadvance.ultimateandroidtemplaterx;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import com.androidadvance.ultimateandroidtemplaterx.data.remote.APIService;
-import com.androidadvance.ultimateandroidtemplaterx.model.weather.WeatherPojo;
 import com.androidadvance.ultimateandroidtemplaterx.view.main.MainActivity;
 import javax.inject.Inject;
 import org.junit.Before;
@@ -26,21 +25,21 @@ import static org.hamcrest.Matchers.containsString;
 
   @Inject APIService apiService;
 
-  @Before public void setUp() {
-    apiService = ((BaseApplication) activityTestRule.getActivity().getApplication()).getApplicationComponent().apiService();
-  }
-
-  @Test public void correctWeatherDataDisplayed() {
-    WeatherPojo weatherData = apiService.getWeatherForCity(CITY_NAME, "metric").toBlocking().first();
-    //onView(withId(R.id.button_get_weather)).perform(click());
-    onView(withId(R.id.textview_main_city)).check(matches(withText(containsString("Sofia"))));
-  }
-
-  @Test public void correctOtherShit() {
-    WeatherPojo weatherData = apiService.getWeatherForCity(CITY_NAME, "metric").toBlocking().first();
-    onView(withId(R.id.button_main_next_days)).perform(click());
-
-    //continue...
-
-  }
+  //@Before public void setUp() {
+  //  apiService = ((BaseApplication) activityTestRule.getActivity().getApplication()).getApplicationComponent().apiService();
+  //}
+  //
+  //@Test public void correctWeatherDataDisplayed() {
+  //  WeatherPojo weatherData = apiService.getWeatherForCity(CITY_NAME, "metric").toBlocking().first();
+  //  //onView(withId(R.id.button_get_weather)).perform(click());
+  //  onView(withId(R.id.textview_main_city)).check(matches(withText(containsString("Sofia"))));
+  //}
+  //
+  //@Test public void correctOtherShit() {
+  //  WeatherPojo weatherData = apiService.getWeatherForCity(CITY_NAME, "metric").toBlocking().first();
+  //  onView(withId(R.id.button_main_next_days)).perform(click());
+  //
+  //  //continue...
+  //
+  //}
 }

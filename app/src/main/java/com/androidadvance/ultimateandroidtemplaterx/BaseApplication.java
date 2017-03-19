@@ -3,20 +3,14 @@ package com.androidadvance.ultimateandroidtemplaterx;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
-import android.support.annotation.VisibleForTesting;
 import com.androidadvance.ultimateandroidtemplaterx.di.component.ApplicationComponent;
 import com.androidadvance.ultimateandroidtemplaterx.di.component.DaggerApplicationComponent;
 import com.androidadvance.ultimateandroidtemplaterx.di.module.ApplicationModule;
-import com.androidadvance.ultimateandroidtemplaterx.events.AuthenticationErrorEvent;
 import com.socks.library.KLog;
-import javax.inject.Inject;
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 public class BaseApplication extends Application {
 
-  private ApplicationComponent applicationComponent;
-  @Inject EventBus eventBus;
+  private ApplicationComponent mApplicationComponent;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -28,38 +22,26 @@ public class BaseApplication extends Application {
     } else {
       KLog.init(false);
     }
-
-    applicationComponent = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
-
-    applicationComponent.inject(this);
-    eventBus.register(this);
   }
 
   public static BaseApplication get(Context context) {
     return (BaseApplication) context.getApplicationContext();
   }
 
-
-
-  public ApplicationComponent getApplicationComponent() {
-    return applicationComponent;
+  public ApplicationComponent getComponent() {
+    if (mApplicationComponent == null) {
+      mApplicationComponent = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
+    }
+    return mApplicationComponent;
   }
 
-  @VisibleForTesting public void setApplicationComponent(ApplicationComponent applicationComponent) {
-    applicationComponent = applicationComponent;
+  // Needed to replace the component with a test specific one
+  public void setComponent(ApplicationComponent applicationComponent) {
+    mApplicationComponent = applicationComponent;
   }
 
   @Override public void onLowMemory() {
     super.onLowMemory();
     KLog.e("########## onLowMemory ##########");
-  }
-
-  @Override public void onTerminate() {
-    eventBus.unregister(this);
-    super.onTerminate();
-  }
-
-  @Subscribe public void onEvent(AuthenticationErrorEvent event) {
-    KLog.e("Unauthorized! Redirect to Signing Activity..!.");
   }
 }

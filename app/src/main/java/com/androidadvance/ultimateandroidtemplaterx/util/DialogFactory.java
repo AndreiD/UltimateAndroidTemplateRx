@@ -1,31 +1,36 @@
 package com.androidadvance.ultimateandroidtemplaterx.util;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.support.annotation.ColorInt;
 import android.support.annotation.StringRes;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 import com.androidadvance.ultimateandroidtemplaterx.R;
-
+import com.muddzdev.styleabletoastlibrary.StyleableToast;
 
 public final class DialogFactory {
 
+  private static final @ColorInt int DEFAULT_TEXT_COLOR = Color.parseColor("#FFFFFF");
+
+  private static final @ColorInt int ERROR_COLOR = Color.parseColor("#D50000");
+  private static final @ColorInt int INFO_COLOR = Color.parseColor("#3F51B5");
+  private static final @ColorInt int SUCCESS_COLOR = Color.parseColor("#388E3C");
+  private static final @ColorInt int WARNING_COLOR = Color.parseColor("#FFA900");
+
   public static Dialog createSimpleOkDialog(Context context, String title, String message) {
-    AlertDialog.Builder alertDialog = new AlertDialog.Builder(context).setTitle(title).setMessage(message).setNeutralButton(R.string.dialog_action_ok, null);
+    AlertDialog.Builder alertDialog =
+        new AlertDialog.Builder(context).setTitle(title).setMessage(message).setNeutralButton(R.string.dialog_action_ok, null);
     return alertDialog.create();
   }
 
   public static Dialog createGenericErrorDialog(Context context, String message) {
-    AlertDialog.Builder alertDialog = new AlertDialog.Builder(context, R.style.AppCompatAlertDialogErrorStyle).setTitle(context.getString(R.string.generic_error_title)).setMessage(message).setNeutralButton(R.string.dialog_action_ok, null);
+    AlertDialog.Builder alertDialog =
+        new AlertDialog.Builder(context, R.style.AppCompatAlertDialogErrorStyle).setTitle(context.getString(R.string.generic_error_title))
+            .setMessage(message)
+            .setNeutralButton(R.string.dialog_action_ok, null);
     return alertDialog.create();
   }
 
@@ -39,30 +44,46 @@ public final class DialogFactory {
     return createProgressDialog(context, context.getString(messageResource));
   }
 
-  public static Snackbar showErrorSnackBar(Activity mContext, View rootView, Throwable throwable) {
-    String message = mContext.getString(R.string.dialog_general_error_message);
-    if (throwable != null) {
-      message = throwable.getLocalizedMessage();
-
-    }
-    Snackbar snack_error = Snackbar.make(rootView, message, Snackbar.LENGTH_LONG);
-    View view = snack_error.getView();
-    TextView tv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
-    tv.setTextColor(ContextCompat.getColor(mContext, R.color.material_red));
-    return snack_error;
+  public static StyleableToast success_toast(Context context, String message) {
+    StyleableToast st = new StyleableToast(context, message, Toast.LENGTH_SHORT);
+    st.setBackgroundColor(SUCCESS_COLOR);
+    st.setTextColor(Color.WHITE);
+    //st.setCornerRadius(3); for example
+    st.setMaxAlpha();
+    return st;
   }
 
-  public static ProgressBar DProgressBar(Context context) {
-
-    ViewGroup layout = (ViewGroup) ((Activity) context).findViewById(android.R.id.content).getRootView();
-    ProgressBar mProgressBar = new ProgressBar(context, null, android.R.attr.progressBarStyleLarge);
-    mProgressBar.setIndeterminate(true);
-    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-    RelativeLayout rl = new RelativeLayout(context);
-    rl.setGravity(Gravity.CENTER);
-    rl.addView(mProgressBar);
-    layout.addView(rl, params);
-    return mProgressBar;
+  public static StyleableToast simple_toast(Context context, String message) {
+    StyleableToast st = new StyleableToast(context, message, Toast.LENGTH_SHORT);
+    st.setBackgroundColor(DEFAULT_TEXT_COLOR);
+    st.setTextColor(Color.WHITE);
+    st.setMaxAlpha();
+    return st;
   }
 
+  public static StyleableToast loading_toast(Context context, String message) {
+    StyleableToast st = new StyleableToast(context, message, Toast.LENGTH_SHORT);
+    st.setBackgroundColor(INFO_COLOR);
+    st.setTextColor(Color.WHITE);
+    st.setIcon(R.drawable.ic_autorenew_black_24dp);
+    st.spinIcon();
+    st.setMaxAlpha();
+    return st;
+  }
+
+  public static StyleableToast warning_toast(Context context, String message) {
+    StyleableToast st = new StyleableToast(context, message, Toast.LENGTH_SHORT);
+    st.setBackgroundColor(WARNING_COLOR);
+    st.setTextColor(Color.WHITE);
+    st.setMaxAlpha();
+    return st;
+  }
+
+  public static StyleableToast error_toast(Context context, String message) {
+    StyleableToast st = new StyleableToast(context, message, Toast.LENGTH_SHORT);
+    st.setBackgroundColor(ERROR_COLOR);
+    st.setTextColor(Color.WHITE);
+    st.setMaxAlpha();
+    return st;
+  }
 }
