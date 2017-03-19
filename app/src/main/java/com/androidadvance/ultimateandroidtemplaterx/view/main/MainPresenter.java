@@ -15,8 +15,4 @@ public class MainPresenter implements Presenter<MainMvpView> {
     this.mainMvpView = null;
   }
 
-
-
-
-
 }

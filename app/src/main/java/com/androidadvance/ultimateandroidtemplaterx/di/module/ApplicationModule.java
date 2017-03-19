@@ -24,7 +24,7 @@ import org.greenrobot.eventbus.EventBus;
     return mApplication;
   }
 
-  @Provides @ApplicationContext Context provideContext() {
+  @Provides @ApplicationContext public Context provideContext() {
     return mApplication;
   }
 
