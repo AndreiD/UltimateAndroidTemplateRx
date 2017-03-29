@@ -4,43 +4,6 @@
 -dontpreverify
 -verbose
 
-
-# ButterKnife rules
--keep class butterknife.** { *; }
--dontwarn butterknife.internal.**
--keep class **$$ViewBinder { *; }
-
--keepclasseswithmembernames class * {
-    @butterknife.* <fields>;
-}
-
--keepclasseswithmembernames class * {
-    @butterknife.* <methods>;
-}
-
-
-# Gson rules
--keepattributes Signature
--keep class sun.misc.Unsafe { *; }
-# TODO change to match your package model
-# Keep non static or private fields of models so Gson can find their names
--keepclassmembers class YOUR_PACKAGE_NAME.data.model.** {
-    !static !private <fields>;
-}
-
-# Platform calls Class.forName on types which do not exist on Android to determine platform.
--dontnote retrofit2.Platform
-# Platform used when running on RoboVM on iOS. Will not be used at runtime.
--dontnote retrofit2.Platform$IOS$MainThreadExecutor
-# Platform used when running on Java 8 VMs. Will not be used at runtime.
--dontwarn retrofit2.Platform$Java8
-# Retain generic type information for use by reflection by converters and adapters.
--keepattributes Signature
-# Retain declared checked exceptions for use by a Proxy instance.
--keepattributes Exceptions
-
--dontwarn java.lang.invoke.*
-
 # The -optimizations option disables some arithmetic simplifications that Dalvik 1.0 and 1.5 can't handle.
 -optimizations !code/simplification/arithmetic
 
@@ -60,6 +23,14 @@
     @butterknife.* <methods>;
 }
 
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+-dontwarn okio.**
+-dontwarn retrofit2.Platform$Java8
 
 # Retrofit rules
 -dontwarn retrofit.**
