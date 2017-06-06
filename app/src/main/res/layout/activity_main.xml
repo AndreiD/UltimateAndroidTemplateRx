@@ -17,8 +17,8 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
-      android:background="@color/Black"
-      app:itemBackground="@color/colorPrimaryDark"
+      android:background="@color/red"
+      app:itemBackground="?android:attr/selectableItemBackground"
       app:itemIconTint="@drawable/selector_menu"
       app:itemTextColor="@drawable/selector_menu"
       app:menu="@menu/bottom_navigation_menu" />

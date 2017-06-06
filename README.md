@@ -6,6 +6,7 @@ A *SIMPLE* MVP Template
 
 A simple template application following the MVP Arhitecture updated frequently with the latest version of most common libraries.
 There are many good templates out there, but with this one I tried to keep things as simple as possible.
+For the bottom menu I used com.github.bufferapp:AdaptableBottomNavigation (but as copy paste in the project since as gradle doesn't work)
 
 Everybody got their own preferences about databases and testing, so I left them out.
 

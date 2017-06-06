@@ -68,8 +68,11 @@ public class StatusFragment extends BaseFragment implements StatusMvpView {
     //textView_fragment_headers.setText(headers);
   }
 
-  @Override
-  public void showError(String error) {
-    DialogFactory.createGenericErrorDialog(getActivity(), error).show();
+  @Override public void showError(String error) {
+    try {
+      DialogFactory.createGenericErrorDialog(getActivity(), error).show();
+    }catch (Exception ex){
+      KLog.e(ex);
+    }
   }
 }

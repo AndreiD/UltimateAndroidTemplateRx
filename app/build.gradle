@@ -83,7 +83,7 @@ dependencies {
   //----- Styled Dialogs
   compile 'com.muddzdev:styleabletoast:1.0.6'
 
-  //----- Bottom Navigation
+  //----- Bottom Navigation  until it gets fixed for gradle... it's copy paste from the repo :(
   //compile 'com.github.bufferapp:AdaptableBottomNavigation:2319dbccb2'
 
   //----- Unit tests dependencies

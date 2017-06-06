@@ -61,6 +61,8 @@ public class MenuFragment extends BaseFragment implements MenuMvpView {
   }
 
   @Override public void showError(String error) {
-    DialogFactory.createGenericErrorDialog(getActivity(),error).show();
+    try {
+      DialogFactory.createGenericErrorDialog(getActivity(), error).show();
+    }catch (Exception ex){}
   }
 }
