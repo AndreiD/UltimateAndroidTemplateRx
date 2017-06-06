@@ -1,4 +1,4 @@
-Ultimate Android Template MVP // Dagger 2
+Ultimate Android Template MVP // Dagger 2 // Boilerplate // Bootstrap // Bottom Navigation Menu Material Design
 ===================
 
 A *SIMPLE* MVP Template
@@ -6,10 +6,11 @@ A *SIMPLE* MVP Template
 
 A simple template application following the MVP Arhitecture updated frequently with the latest version of most common libraries.
 There are many good templates out there, but with this one I tried to keep things as simple as possible.
-For the bottom menu I used com.github.bufferapp:AdaptableBottomNavigation (but as copy paste in the project since as gradle doesn't work)
+For the bottom menu I used <a href="https://github.com/bufferapp/AdaptableBottomNavigation" target="_blank">com.github.bufferapp:AdaptableBottomNavigation</a> (but as copy paste in the project since as gradle doesn't work)
 
 Everybody got their own preferences about databases and testing, so I left them out.
 
+<img src="https://raw.githubusercontent.com/AndreiD/UltimateAndroidTemplateRx/master/art/screenshot_1.png" width="600px" height="auto" alt="screenshot android template boilerplate boostrap" />
 
 Before you begin with this template:
 ------------
