@@ -1,4 +1,4 @@
-package com.androidadvance.ultimateandroidtemplaterx.view.fragment;
+package com.androidadvance.ultimateandroidtemplaterx.view.fragment.menu;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,23 +15,19 @@ import com.socks.library.KLog;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-public class DetailFragment extends BaseFragment implements DetailMvpView {
+public class MenuFragment extends BaseFragment implements MenuMvpView {
 
-  private static final String ARG_EXAMPLE = "ARG_EXAMPLE";
-  @BindView(R.id.textView_fragment_headers) TextView textView_fragment_headers;
+  //@BindView(R.id.textView_fragment_headers) TextView textView_fragment_headers;
 
-  public static DetailFragment newInstance(int example_argument) {
-    DetailFragment detailFragment = new DetailFragment();
-    Bundle args = new Bundle();
-    args.putInt(ARG_EXAMPLE, example_argument);
-    detailFragment.setArguments(args);
-    return detailFragment;
+  public static MenuFragment newInstance() {
+    MenuFragment menuFragment = new MenuFragment();
+    return menuFragment;
   }
 
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    DetailPresenter presenter = new DetailPresenter(getActivity());
+    MenuPresenter presenter = new MenuPresenter(getActivity());
     presenter.attachView(this);
 
     //load the headers on creation
@@ -40,11 +36,10 @@ public class DetailFragment extends BaseFragment implements DetailMvpView {
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    int example_argument = getArguments().getInt(ARG_EXAMPLE);
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.fragment_headers, container, false);
+    return inflater.inflate(R.layout.fragment_menu, container, false);
   }
 
   @Override public void onStart() {
@@ -62,7 +57,7 @@ public class DetailFragment extends BaseFragment implements DetailMvpView {
   }
 
   @Override public void showHeaders(String headers) {
-    textView_fragment_headers.setText(headers);
+    //textView_fragment_headers.setText(headers);
   }
 
   @Override public void showError(String error) {

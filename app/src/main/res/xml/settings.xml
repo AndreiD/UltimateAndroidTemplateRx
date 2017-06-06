@@ -24,7 +24,7 @@
 
         <Preference
             android:key="copyright"
-            android:summary="RScanner © 2015. All rights reserved."
+            android:summary="AndroidAdvance.com © 2017. All rights reserved."
             android:title="Copyright"/>
 
     </PreferenceCategory>

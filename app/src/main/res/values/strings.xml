@@ -22,6 +22,9 @@
   <string name="image">Image</string>
   <string name="generic_error_title">Ops! An error occurred.</string>
   <string name="show_headers">Show Headers</string>
+  <string name="build">Build</string>
+  <string name="status">Status</string>
+  <string name="menu">Menu</string>
 
 
 </resources>

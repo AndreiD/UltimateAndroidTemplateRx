@@ -3,15 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="@color/app_window_bgdark_color"
     >
 
   <TextView
-      android:id="@+id/textView_fragment_headers"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_margin="32dp"
-      android:text="Placeholder for headers..."
+      android:layout_centerHorizontal="true"
+      android:layout_centerVertical="true"
+      android:text="status"
+      android:textSize="25sp"
       />
 
 </RelativeLayout>
