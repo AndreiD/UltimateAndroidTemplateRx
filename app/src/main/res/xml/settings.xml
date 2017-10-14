@@ -24,7 +24,7 @@
 
         <Preference
             android:key="copyright"
-            android:summary="RScanner © 2015. All rights reserved."
+            android:summary="UltimateAndroidTemplateRx © 2017 - forever. All rights reserved."
             android:title="Copyright"/>
 
     </PreferenceCategory>
