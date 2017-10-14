@@ -4,30 +4,33 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.androidadvance.ultimateandroidtemplaterx.R;
 import com.androidadvance.ultimateandroidtemplaterx.events.MessagesEvent;
 import com.androidadvance.ultimateandroidtemplaterx.util.DialogFactory;
+import com.androidadvance.ultimateandroidtemplaterx.util.adaptablebottomnavigation.view.AdaptableBottomNavigationView;
+import com.androidadvance.ultimateandroidtemplaterx.util.adaptablebottomnavigation.view.ViewSwapper;
 import com.androidadvance.ultimateandroidtemplaterx.view.BaseActivity;
-import com.androidadvance.ultimateandroidtemplaterx.view.fragment.DetailFragment;
 import com.androidadvance.ultimateandroidtemplaterx.view.settings.SettingsActivity;
 import com.socks.library.KLog;
+import java.util.Arrays;
 import javax.inject.Inject;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 public class MainActivity extends BaseActivity implements MainMvpView {
 
-  @BindView(R.id.button_show_headers) Button button_show_headers;
+  @BindView(R.id.view_bottom_navigation) AdaptableBottomNavigationView adaptableBottomNavigationView;
+  @BindView(R.id.view_swapper) ViewSwapper view_swapper;
+  private ViewSwapperAdapter viewSwapperAdapter;
   private MainPresenter presenter;
 
   @Inject EventBus eventBus;
   private MainActivity mContext;
 
-  @Override public void onCreate(Bundle savedInstanceState) {
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_main);
@@ -39,24 +42,40 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     presenter.attachView(this);
 
     getSupportActionBar().setElevation(0);
+
+
+
+    //let's test some Java 8 stuff
+    String[] stringArray = { "Barbara", "James", "Mary", "John",
+        "Patricia", "Robert", "Michael", "Linda" };
+    Arrays.sort(stringArray, String::compareToIgnoreCase);
+    KLog.d(Arrays.asList(stringArray));
+
+
+    viewSwapperAdapter = new ViewSwapperAdapter(getSupportFragmentManager());
+    view_swapper.setAdapter(viewSwapperAdapter);
+    adaptableBottomNavigationView.setupWithViewSwapper(view_swapper);
   }
 
-  @OnClick(R.id.button_show_headers) void onClick_show_headers() {
+  //@OnClick(R.id.button_show_headers) void onClick_show_headers() {
+  //
+  //  getSupportFragmentManager().beginTransaction().replace(android.R.id.content, MenuFragment.newInstance(1)).addToBackStack(null).commit();
+  //}
 
-    getSupportFragmentManager().beginTransaction().replace(android.R.id.content, DetailFragment.newInstance(1)).addToBackStack(null).commit();
-  }
-
-  @Override protected void onDestroy() {
+  @Override
+  protected void onDestroy() {
     presenter.detachView();
     super.onDestroy();
   }
 
-  @Override public boolean onCreateOptionsMenu(Menu menu) {
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_main, menu);
     return true;
   }
 
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.action_settings:
         startActivity(new Intent(this, SettingsActivity.class));
@@ -72,17 +91,20 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     }
   }
 
-  @Override public void onStart() {
+  @Override
+  public void onStart() {
     super.onStart();
     eventBus.register(this);
   }
 
-  @Override public void onStop() {
+  @Override
+  public void onStop() {
     eventBus.unregister(this);
     super.onStop();
   }
 
-  @Subscribe public void onEvent(MessagesEvent event) {
+  @Subscribe
+  public void onEvent(MessagesEvent event) {
     if (event.ismSuccess()) {
       DialogFactory.createSimpleOkDialog(MainActivity.this, getString(R.string.app_name), event.getMessage()).show();
     } else {
@@ -90,8 +112,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     }
   }
 
-
-  @Override public void doing_nothing() {
+  @Override
+  public void doing_nothing() {
     KLog.d("doing nothign...");
   }
 }

@@ -2,21 +2,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
 
-  <Button
-      android:id="@+id/button_show_headers"
+  <com.androidadvance.ultimateandroidtemplaterx.util.adaptablebottomnavigation.view.ViewSwapper
+      android:id="@+id/view_swapper"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_above="@+id/view_bottom_navigation" />
+
+  <com.androidadvance.ultimateandroidtemplaterx.util.adaptablebottomnavigation.view.AdaptableBottomNavigationView
+      android:id="@+id/view_bottom_navigation"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
-      android:layout_alignParentLeft="true"
-      android:layout_alignParentStart="true"
-      android:layout_margin="16dp"
-      android:text="@string/show_headers"
-      android:textSize="12sp"
-      />
+      android:background="@color/red"
+      app:itemBackground="?android:attr/selectableItemBackground"
+      app:itemIconTint="@drawable/selector_menu"
+      app:itemTextColor="@drawable/selector_menu"
+      app:menu="@menu/bottom_navigation_menu" />
 
 
 </RelativeLayout>

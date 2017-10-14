@@ -1,4 +1,4 @@
-package com.androidadvance.ultimateandroidtemplaterx.view.fragment;
+package com.androidadvance.ultimateandroidtemplaterx.view.fragment.status;
 
 import android.content.Context;
 import com.androidadvance.ultimateandroidtemplaterx.BaseApplication;
@@ -12,33 +12,33 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailPresenter implements Presenter<DetailMvpView> {
+public class StatusPresenter implements Presenter<StatusMvpView> {
 
-  private DetailMvpView detailMvpView;
+  private StatusMvpView statusMvpView;
 
-  @Inject public DetailPresenter(Context ctx) {
+  @Inject public StatusPresenter(Context ctx) {
     ((BaseApplication) ctx.getApplicationContext()).getComponent().inject(this);
   }
 
   @Inject @Named("cached") APIService apiService;
 
-  @Override public void attachView(DetailMvpView view) {
-    this.detailMvpView = view;
+  @Override public void attachView(StatusMvpView view) {
+    this.statusMvpView = view;
   }
 
   @Override public void detachView() {
-    this.detailMvpView = null;
+    this.statusMvpView = null;
   }
 
   public void show_headers() {
 
     apiService.getHeaders().enqueue(new Callback<IPInfo>() {
       @Override public void onResponse(Call<IPInfo> call, Response<IPInfo> response) {
-        detailMvpView.showHeaders(response.body().toString());
+        statusMvpView.showHeaders(response.body().toString());
       }
 
       @Override public void onFailure(Call<IPInfo> call, Throwable t) {
-        detailMvpView.showError(t.getLocalizedMessage());
+        statusMvpView.showError(t.getMessage());
       }
     });
 
