@@ -8,12 +8,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.androidadvance.ultimateandroidtemplaterx.R;
 import com.androidadvance.ultimateandroidtemplaterx.events.MessagesEvent;
+import com.androidadvance.ultimateandroidtemplaterx.model.User;
 import com.androidadvance.ultimateandroidtemplaterx.util.DialogFactory;
 import com.androidadvance.ultimateandroidtemplaterx.util.adaptablebottomnavigation.view.AdaptableBottomNavigationView;
 import com.androidadvance.ultimateandroidtemplaterx.util.adaptablebottomnavigation.view.ViewSwapper;
 import com.androidadvance.ultimateandroidtemplaterx.view.BaseActivity;
 import com.androidadvance.ultimateandroidtemplaterx.view.settings.SettingsActivity;
 import com.socks.library.KLog;
+import io.objectbox.Box;
+import io.objectbox.BoxStore;
 import java.util.Arrays;
 import javax.inject.Inject;
 import org.greenrobot.eventbus.EventBus;
@@ -21,12 +24,10 @@ import org.greenrobot.eventbus.Subscribe;
 
 public class MainActivity extends BaseActivity implements MainMvpView {
 
-  @BindView(R.id.view_bottom_navigation) AdaptableBottomNavigationView adaptableBottomNavigationView;
-  @BindView(R.id.view_swapper) ViewSwapper view_swapper;
-  private ViewSwapperAdapter viewSwapperAdapter;
   private MainPresenter presenter;
 
   @Inject EventBus eventBus;
+  @Inject Box<User> userBox;
   private MainActivity mContext;
 
   @Override
@@ -43,18 +44,9 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     getSupportActionBar().setElevation(0);
 
+    userBox.put(new User(0, "NAdfsa 2 ", "fdaf 2@fdas.com"));
 
 
-    //let's test some Java 8 stuff
-    String[] stringArray = { "Barbara", "James", "Mary", "John",
-        "Patricia", "Robert", "Michael", "Linda" };
-    Arrays.sort(stringArray, String::compareToIgnoreCase);
-    KLog.d(Arrays.asList(stringArray));
-
-
-    viewSwapperAdapter = new ViewSwapperAdapter(getSupportFragmentManager());
-    view_swapper.setAdapter(viewSwapperAdapter);
-    adaptableBottomNavigationView.setupWithViewSwapper(view_swapper);
   }
 
   //@OnClick(R.id.button_show_headers) void onClick_show_headers() {

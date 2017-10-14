@@ -15,6 +15,8 @@ public class BaseApplication extends Application {
   @Override public void onCreate() {
     super.onCreate();
 
+
+
     boolean isDebuggable = (0 != (getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE));
 
     if (isDebuggable) {

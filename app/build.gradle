@@ -1,5 +1,12 @@
 apply plugin: 'com.android.application'
 
+dependencies {
+  debugCompile "io.objectbox:objectbox-android-objectbrowser:1.1.0"
+  releaseCompile "io.objectbox:objectbox-android:1.1.0"
+}
+
+apply plugin: 'io.objectbox'
+
 android {
   compileSdkVersion 26
   buildToolsVersion '26.0.2'
