@@ -44,11 +44,12 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     getSupportActionBar().setElevation(0);
 
-    userBox.put(new User(0, "NAdfsa 2 ", "fdaf 2@fdas.com"));
+    userBox.put(new User(0, "Jon Snow", "email@company.com"));
 
 
   }
 
+  //Example onClick with butterknife
   //@OnClick(R.id.button_show_headers) void onClick_show_headers() {
   //
   //  getSupportFragmentManager().beginTransaction().replace(android.R.id.content, MenuFragment.newInstance(1)).addToBackStack(null).commit();
