@@ -6,8 +6,12 @@ buildscript {
         mavenCentral()
         google()
     }
+
+    ext.objectboxVersion = '2.0.0'
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-alpha3'
+        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
+
     }
 }
 
