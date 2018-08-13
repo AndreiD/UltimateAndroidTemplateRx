@@ -1,24 +1,25 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    
     repositories {
+        google()
         jcenter()
         mavenCentral()
-        google()
     }
-
-    ext.objectboxVersion = '2.0.0'
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.4'
-        classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
+        
 
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
     }
 }
 
 allprojects {
     repositories {
-        jcenter()
         google()
+        jcenter()
     }
 }
 
