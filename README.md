@@ -1,6 +1,8 @@
 Ultimate Android Template MVP // Dagger 2 // Boilerplate // Bootstrap // Bottom Navigation Menu Material Design
 ===================
 
+## Sadly, I don't have time to maintain this. If you'd like to be a maintainer, drop me a message in an issue !!
+
 A *SIMPLE* MVP Template
 ------------
 
